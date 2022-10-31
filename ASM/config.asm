@@ -1,3 +1,7 @@
+; configuracoes do menu
+tecla_sair	equ	51h ; tecla Q
+coluninha	equ	14h
+
 ; configurações da animação
 telaX		equ	640	; comprimento da tela
 telaY		equ	480	; altura da tela

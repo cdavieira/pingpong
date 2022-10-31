@@ -26,17 +26,18 @@ restaurar_int9:
 	sti
         ret
 ; novo tratamento implementado para int 9
+; ao final, caracter esta em uma posicao do vetor tecla e [p_i] armazena essa posicao
 tecla_pressionada:
 	push	ax
 	push	bx
 	push	word seg cs_dos
 	mov	ax,seg cs_dos
 	mov	ds,ax
-	in	al, kb_data
-	inc	word [p_i]
-	and	word [p_i],7
-	mov	bx,[p_i]
-	mov	[bx+tecla],al
+	in	al, kb_data ; al armazena o caracter lido no teclado
+	inc	word [p_i] ; atualizando deslocamento
+	and	word [p_i],7 ; atualizando deslocamento
+	mov	bx,[p_i] ; atualizando deslocamento
+	mov	[bx+tecla],al ; o caracter eh armazenado no lugar da memoria apontado por tecla + deslocamento (bx)
 	in	al, kb_ctl
 	or	al, 80h
 	out	kb_ctl, al

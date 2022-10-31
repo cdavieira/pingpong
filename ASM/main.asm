@@ -18,7 +18,7 @@ segment code
         ; alterar interrupcao padrao do teclado
         call    trocar_int9
 
-        ; call	desenhar_menu
+        call	desenhar_menu
 	; call	gameloop
 
 	; restaurar interrupcao padrao do teclado

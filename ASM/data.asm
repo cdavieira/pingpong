@@ -22,5 +22,5 @@ tecla		resb	8
 p_i		dw	0   ; ponteiro p/ int (qnd pressiona tecla)  
 p_t		dw	0   ; ponterio p/ int (qnd solta tecla)	
 teclasc		db	0,0,13,10,'$'
-	
+
 %include "asm/config.asm"

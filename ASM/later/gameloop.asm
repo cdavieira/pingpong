@@ -16,7 +16,7 @@ decode_tecla:
 	mov	bl, 16
 	div	bl
 	add	al, 30h
-	cmp	al, 3ah												 
+	cmp	al, 3ah
 	jb	eh_decimal
 	add	al, 07h
 eh_decimal:	
@@ -28,7 +28,7 @@ eh_decimal:
 eh_decimal1:
 	mov	[teclasc+1], ah ; gravando segundo digito do numero
 teclas_jogo:
-	cmp	byte [tecla_u], 'q'
+	cmp	byte [tecla_u],'Q'
 	je	finalizar_jogo
         ; adicionar codigo aqui
         ; adicionar demais acoes tomadas mediante certas teclas aqui
