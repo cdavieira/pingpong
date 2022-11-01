@@ -7,3 +7,4 @@ md %lstFolder%
 %exeFolder%\nasm16 -f obj -o %objFolder%\menu.obj -l %lstFolder%\menu.lst %asmFolder%\menu.asm
 %exeFolder%\nasm16 -f obj -o %objFolder%\plot_xy.obj -l %lstFolder%\plot_xy.lst %asmFolder%\plot_xy.asm
 %exeFolder%\nasm16 -f obj -o %objFolder%\line.obj -l %lstFolder%\line.lst %asmFolder%\line.asm
+%exeFolder%\nasm16 -f obj -o %objFolder%\rect.obj -l %lstFolder%\rect.lst %asmFolder%\rect.asm

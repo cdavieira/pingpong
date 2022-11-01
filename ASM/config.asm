@@ -1,23 +1,18 @@
-; configuracoes do menu
-; codigos teclado ibm
-; 0 ???? ; 1 ???? ; 2 ???? ; 3 ????
-; 4 ???? ; 5 ???? ; 6 ???? ; 7 ????
-; 8 ???? ; 9 ????
-; a 1e9e ; b 30b0 ; c 2eae ; d 20a0
-; e 1292 ; f 21a1 ; g 22a2 ; h 23a3
-; i 1797 ; j 24a4 ; k 25a5 ; l 26a6
-; m 32b2 ; n ???? ; o ???? ; p ????
-; q 1090 ; r ???? ; s 1f9f ; t ????
-; u ???? ; v 2faf ; w ???? ; x ????
-; y ???? ; z ???? ;
-; -> e04de0cd ; <- e04be0cb ; ↑ e048e0c8 ; ↓ e050e0d0
-; enter 1c9c ; esc 0181 ; shift ; ctrl ; space 39b9 ; alt 38b8
-tecla_sair	equ	90h
-coluninha	equ	14h
-
-; configurações da animação
+; configuracoes gerais
 telaX		equ	640	; comprimento da tela
 telaY		equ	480	; altura da tela
+
+; configuracoes do menu
+caixaW          equ     telaX/7
+caixaH          equ     telaY/7
+caixaX          equ     caixaW
+caixaY          equ     3*caixaH
+tecla_sair	equ	90h
+seta_dir        equ     0cdh
+seta_esq        equ     0cbh
+coluninha       equ     14h
+
+; configurações da animação
 raio		equ	10	; raio da bolinha
 ganho		equ	5	; deslocamento nas direções X e Y
 limEX		equ	raio+ganho ; limite esquerdo X (valor mínimo)
@@ -49,3 +44,18 @@ kb_ctl  	equ 	61h  ; porta de reset para pedir nova interrupcao
 pictrl  	equ 	20h
 eoi	 	equ 	20h
 int9		equ 	9h
+
+; OUTROS
+; CODIGOS TECLADO IBM
+; 0 ???? ; 1 ???? ; 2 ???? ; 3 ????
+; 4 ???? ; 5 ???? ; 6 ???? ; 7 ????
+; 8 ???? ; 9 ????
+; a 1e9e ; b 30b0 ; c 2eae ; d 20a0
+; e 1292 ; f 21a1 ; g 22a2 ; h 23a3
+; i 1797 ; j 24a4 ; k 25a5 ; l 26a6
+; m 32b2 ; n ???? ; o ???? ; p ????
+; q 1090 ; r ???? ; s 1f9f ; t ????
+; u ???? ; v 2faf ; w ???? ; x ????
+; y ???? ; z ???? ;
+; -> e04de0cd ; <- e04be0cb ; ↑ e048e0c8 ; ↓ e050e0d0
+; enter 1c9c ; esc 0181 ; shift ; ctrl ; space 39b9 ; alt 38b8
