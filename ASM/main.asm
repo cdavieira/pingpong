@@ -1,4 +1,4 @@
-extern modo_anterior,trocar_int9,restaurar_int9,desenhar_menu
+extern modo_anterior,trocar_int9,restaurar_int9,desenhar_menu,tecla_pressionada
 
 segment code
 ..start:
@@ -18,6 +18,7 @@ segment code
         ; alterar interrupcao padrao do teclado
         call    trocar_int9
 
+        ; call  tecla_pressionada
         call	desenhar_menu
 	; call	gameloop
 

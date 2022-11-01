@@ -75,7 +75,7 @@ delay3:
 	call	line
 	sub	dx,20
 	loop	loop1
-	jmp	tratar_tecla
+	jmp	esperar_tecla
 sair_menu:
         pop     bx
         pop     ax
