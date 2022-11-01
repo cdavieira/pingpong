@@ -1,7 +1,7 @@
 extern modo_anterior,trocar_int9,restaurar_int9,desenhar_menu
 
 segment code
-..start
+..start:
 	; configura segmentos
 	mov	ax,seg modo_anterior ; pegando segmento base (data) definido para simbolo "modo_anterior"
 	mov	ds,ax
