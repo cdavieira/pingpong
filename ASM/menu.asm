@@ -6,8 +6,11 @@ desenhar_menu:
         push    ax
         push    bx
 esperar_tecla:
-	mov	ax,[p_i]
-	cmp	ax,[p_t]
+	mov	bx,[p_t]
+	mov	al, [bx+tecla]
+        cmp     al,tecla_sair
+	;mov	ax,[p_i]
+	;cmp	ax,[p_t]
 	je	esperar_tecla
 tratar_tecla:
 	inc	word[p_t]

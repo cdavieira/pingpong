@@ -82,13 +82,13 @@ continue:
 	and	word [p_i],7 ; atualizando deslocamento
 	mov	bx,[p_i] ; atualizando deslocamento
 	mov	[bx+tecla],al ; o caracter eh armazenado no lugar da memoria apontado por tecla + deslocamento (bx)
-	; in	al, kb_ctl
-	; or	al, 80h
-	; out	kb_ctl, al
-	; and	al, 7fh
-	; out	kb_ctl, al
-	; mov	al, eoi
-	; out	pictrl, al
+	in	al, kb_ctl
+	or	al, 80h
+	out	kb_ctl, al
+	and	al, 7fh
+	out	kb_ctl, al
+	mov	al, eoi
+	out	pictrl, al
 	pop	ds
 	pop	bx
 	pop	ax
