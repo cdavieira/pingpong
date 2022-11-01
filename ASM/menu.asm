@@ -1,45 +1,20 @@
 global menu
-extern p_i,p_t,tecla,rect,cor,line
+extern p_i,p_t,tecla,rect,cor,line,facil_msg,medio_msg,dificil_msg
 
 menu:
         pushf
         push    ax
         push    bx
         call    pintar_menu
-        mov     cx,0f000h
+        mov     cx,0100h
+loop2:
         push    cx
-        push    cx
-        push    cx
-        push    cx
-        push    cx
-        push    cx
-loop5:
+        mov     cx,8000h
+loop3:
         nop
-        loop loop5
-        pop  cx
-loop6:
-        nop
-        loop loop6
-        pop  cx
-loop7:
-        nop
-        loop loop7
-        pop  cx
-loop8:
-        nop
-        loop loop8
-        pop cx
-loop9:
-        nop
-        loop loop9
-        pop  cx
-loop10:
-        nop
-        loop loop10
-        pop  cx
-loop11:
-        nop
-        loop loop11
+        loop    loop3
+        pop     cx
+        loop    loop2
         pop     bx
         pop     ax
         popf
@@ -51,60 +26,49 @@ opcoes_menu:
 	je	sair_menu
 	cmp	byte [bx+tecla],seta_dir
 	cmp	byte [bx+tecla],seta_esq
-loading_anim:
-        mov     cx,10
-        mov     dx,100
-loop1:
-        mov     byte [cor],branco_intenso
-        mov     ax,telaX/2
-        sub     ax,dx
-        push    ax
-        mov     ax,telaY/2-coluninha
-        push    ax
-        mov     ax,telaX/2
-        sub     ax,dx
-        push    ax
-        mov     ax,telaY/2+coluninha
-        push    ax
-        call    line
-        push    cx
-delay1:
-        mov     cx,8000h
-        push    cx
-delay2:
-        nop
-        loop    delay2
-        pop     cx
-delay3:
-        nop
-        loop    delay3
-        pop     cx
-        mov     byte [cor],preto
-        mov     ax,telaX/2
-        sub     ax,dx
-        push    ax
-        mov     ax,telaY/2-coluninha
-        push    ax
-        mov     ax,telaX/2
-        sub     ax,dx
-        push    ax
-        mov     ax,telaY/2+coluninha
-        push    ax
-        call    line
-        sub     dx,20
-        loop    loop1
         jmp     esperar_tecla
 sair_menu:
         pop     bx
         pop     ax
         popf
         ret
+
 pintar_menu:
-        call    janela
-        call    caixa_facil
-        call    caixa_medio
-        call    caixa_dific
+        push    ax
+        ;call    janela
+        mov     ax,0005h
+        push    ax
+        mov     ax,facil_msg
+        push    ax
+        mov     ax,0001h
+        push    ax
+        mov     ax,verde
+        push    ax
+        call    caixa_modo
+        mov     ax,0005h
+        push    ax
+        mov     ax,medio_msg
+        push    ax
+        mov     ax,0003h
+        push    ax
+        mov     ax,vermelho
+        push    ax
+        call    caixa_modo
+        mov     ax,0007h
+        push    ax
+        mov     ax,dificil_msg
+        push    ax
+        mov     ax,0005h
+        push    ax
+        mov     ax,vermelho
+        push    ax
+        call    caixa_modo
+        pop     ax
         ret
+
+; Desenha a janela que delimita o jogo, com bordas brancas
+; Parametros: -
+; As dimensoes dessa janela estao definidas no arquivo de configuracao (config.asm)
 janela:
         push    ax
         xor     ax,ax
@@ -120,10 +84,39 @@ janela:
         call    rect
         pop     ax
         ret
-caixa_facil:
+
+; Desenha as caixas de dificuldade do menu inicial
+; Parametros: tamanho do texto (bp+12), ponteiro para texto (bp+10), indice multiplicativo (bp+8), cor da borda da caixa (bp+6)
+; As dimensoes dessas caixas estao definidas no arquivo de configuracao (config.asm)
+caixa_modo:
         push    ax
+        push    bp
+        mov     bp,sp
+        ; escrevendo texto
+        push    bp
+        push    bx
+        push    cx
+        push    dx
+        push    es
+        mov     bx,[bp+6]
+        mov     cx,[bp+12]
+        mov     ah,linhas/2
+        mov     ax,colunas/2
+        mov     dx,ax
+        push    ds
+        pop     es
+        mov     bp,[bp+10]
+        mov     al,0
+        mov     ah,13h
+        int     10h
+        pop     es
+        pop     dx
+        pop     cx
+        pop     bx
+        pop     bp
+        ; fim da rotina de impressao do texto
         xor     ax,ax
-        mov     ax,verde
+        mov     ax,[bp+6]
         push    ax
         mov     ax,caixaW
         push    ax
@@ -132,49 +125,13 @@ caixa_facil:
         push    ax
         xor     ax,ax
         mov     ax,caixaX
+        imul    byte [bp+8]
         push    ax
         mov     ax,caixaY
         push    ax
         call    rect
+        pop     bp
         pop     ax
-        ret
-caixa_medio:
-        push    ax
-        xor     ax,ax
-        mov     ax,vermelho
-        push    ax
-        mov     ax,caixaW
-        push    ax
-        xor     ax,ax
-        mov     ax,caixaH
-        push    ax
-        xor     ax,ax
-        mov     ax,3*caixaX
-        push    ax
-        xor     ax,ax
-        mov     ax,caixaY
-        push    ax
-        call    rect
-        pop     ax
-        ret
-caixa_dific:
-        push    ax
-        xor     ax,ax
-        mov     ax,vermelho
-        push    ax
-        mov     ax,caixaW
-        push    ax
-        xor     ax,ax
-        mov     ax,caixaH
-        push    ax
-        xor     ax,ax
-        mov     ax,5*caixaX
-        push    ax
-        xor     ax,ax
-        mov     ax,caixaY
-        push    ax
-        call    rect
-        pop     ax
-        ret
+        ret     8
 
 %include "asm/config.asm"

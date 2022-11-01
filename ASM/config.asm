@@ -1,12 +1,16 @@
 ; configuracoes gerais
 telaX		equ	640	; comprimento da tela
 telaY		equ	480	; altura da tela
+colunas         equ     30      ; numero de colunas (localizacao do cursor)
+linhas          equ     74      ; numero de linhas (localizacao do cursor)
 
 ; configuracoes do menu
-caixaW          equ     telaX/7
-caixaH          equ     telaY/7
-caixaX          equ     caixaW
-caixaY          equ     3*caixaH
+caixaW          equ     telaX/7 ; width/largura das caixas
+caixaH          equ     telaY/7 ; height/altura das caixas
+caixaX          equ     caixaW ; coordenada X da primeira caixa, deve ser menor que 255
+caixaY          equ     3*caixaH ; coordenada Y das caixas, deve ser menor que 255
+textoX          equ     3*colunas/7
+textoY          equ     linhas/2
 tecla_sair	equ	90h
 seta_dir        equ     0cdh
 seta_esq        equ     0cbh

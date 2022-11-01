@@ -1,6 +1,7 @@
-global modo_anterior,cor,deltax,deltay,velocidade,ganhoX,ganhoY,cs_dos,offset_dos,tecla_u,tecla,p_i,p_t,teclasc
+global modo_anterior,cor,deltax,deltay,velocidade,ganhoX,ganhoY,cs_dos,offset_dos,tecla_u,tecla,p_i,p_t,teclasc,facil_msg,medio_msg,dificil_msg
 
 segment data
+
 ; animacao
 modo_anterior	db	0
 cor		db	branco_intenso
@@ -22,5 +23,10 @@ tecla		resb	8
 p_i		dw	0   ; ponteiro p/ int (qnd pressiona tecla)  
 p_t		dw	0   ; ponterio p/ int (qnd solta tecla)	
 teclasc		db	0,0,13,10,'$'
+
+; menu
+facil_msg           db      "facil"
+medio_msg           db      "medio"
+dificil_msg         db      "dificil"
 
 %include "asm/config.asm"
