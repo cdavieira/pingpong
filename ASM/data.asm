@@ -1,4 +1,4 @@
-global modo_anterior,cor,deltax,deltay,velocidade,ganhoX,ganhoY,cs_dos,offset_dos,tecla,p_i,p_t,facil_msg,medio_msg,dificil_msg,cores_menu,loading_msg
+global modo_anterior,cor,deltax,deltay,velocidade,velBolaX,velBolaY,cs_dos,offset_dos,tecla,p_i,p_t,facil_msg,medio_msg,dificil_msg,cores_menu,loading_msg
 
 segment data
 
@@ -10,10 +10,10 @@ deltay		dw      0
 linha		dw	0
 coluna		dw	0
 velocidade	dw	80h ; duração de cada frame da animação
-ganhoX 		dw	-1*ganho ; ganho na direção x (valor variável)
-ganhoY		dw	ganho	 ; ganho na direção y (valor variável)
-coordX          dw      telaX/2
-coordY          dw      telaY/2
+velBolaX 	dw	-1*ganho ; ganho na direção x (valor variável)
+velBolaY	dw	ganho	 ; ganho na direção y (valor variável)
+bolaX           dw      telaX/2
+bolaY           dw      telaY/2
 
 ; teclado
 cs_dos		dw	1

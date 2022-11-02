@@ -21,7 +21,7 @@ telaX		equ	640	; comprimento da tela em pixels
 telaY		equ	480	; altura da tela em pixels
 colunas         equ     74      ; numero de colunas (localizacao do cursor)
 linhas          equ     30      ; numero de linhas (localizacao do cursor)
-cor_fundo       equ     preto
+cor_fundo       equ     azul
 
 ; teclado ibm codigos
 j_breakcode     equ     0a4h
@@ -41,15 +41,15 @@ caixaW          equ     telaX/7 ; width/largura das caixas
 caixaH          equ     telaY/7 ; height/altura das caixas
 caixaX          equ     caixaW ; coordenada X da primeira caixa, deve ser menor que 255
 caixaY          equ     3*caixaH ; coordenada Y das caixas, deve ser menor que 255
-textoX          equ     colunas/7+2 ; coordenada X do primeiro texto ; DEPRECATED
+textoX          equ     colunas/7+2 ; !!! DEPRECATED !!! ; coordenada X do primeiro texto
 textoY          equ     linhas/2 ; coordenada Y dos textos
 tecla_cont      equ     enter_breakcode ; tecla para selecionar modo e continuar jogo
-tecla_finalizar equ     q_makecode ; tecla para sair do jogo instantaneamente
-pausar          equ     s_breakcode ; tecla para pausar jogo
 esquerda_menu   equ     j_breakcode ; tecla para selecionar modo de jogo a esquerda
 direita_menu    equ     k_breakcode ; tecla para selecionar modo de jogo a direita
 
 ; configuracoes do jogo
+tecla_finalizar equ     q_makecode ; tecla para sair do jogo instantaneamente
+pausar          equ     s_breakcode ; tecla para pausar jogo
 mover_esq       equ     j_makecode ; mover o retangulo para a esquerda
 mover_dir       equ     k_makecode ; mover o retangula para a direita
 
@@ -60,6 +60,13 @@ limEX		equ	raio+ganho ; limite esquerdo X (valor mínimo)
 limDX		equ	telaX-raio-ganho ; limite direito X (valor máximo)
 limSY		equ	telaY-raio-ganho ; limite superior Y (valor máximo)
 limIY		equ	raio+ganho ; limite inferior Y (valor mínimo)
+retH            equ     10 ; altura do retangulo
+retW            equ     20 ; largura do retangulo
+retCor          equ     azul
+retBorda        equ     preto ; cor da borda do retangulo
+retVel          equ     2 ; velocidade do retangulo
+bolaCor         equ     verde
+bolaBorda       equ     preto ; cor da borda da bola
 
 ; interrupcao teclado
 kb_data 	equ 	60h  ; porta de leitura de teclado
