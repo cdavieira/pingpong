@@ -1,3 +1,5 @@
+*.swp
+*.EXE
 ASM/*.swp
 BAT/*.swp
 OBJ/
