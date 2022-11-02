@@ -1,4 +1,4 @@
-global menu
+global menu,janela
 extern p_i,p_t,tecla,rect,cor,line,facil_msg,medio_msg,dificil_msg,cores_menu
 
 menu:
@@ -58,7 +58,7 @@ esq:
         mov     bx,ax ; trocando a cor da caixa anteriormente verde para vermelho
         inc     bx ; indice 0 -> [cores_menu+1], indice 1 -> [cores_menu+2] ...
         mov     byte [cores_menu+bx],vermelho
-        mov     ax,cor_fundo
+        xor     ax,ax
         push    ax
         push    ax
         push    ax
@@ -77,7 +77,6 @@ final_menu:
 fechar_jogo:
         mov     byte [cores_menu],0ffh
 sair_menu:
-        ; apagando 
         pop     bx
         pop     ax
         popf

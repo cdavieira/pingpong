@@ -21,16 +21,19 @@ telaX		equ	640	; comprimento da tela em pixels
 telaY		equ	480	; altura da tela em pixels
 colunas         equ     74      ; numero de colunas (localizacao do cursor)
 linhas          equ     30      ; numero de linhas (localizacao do cursor)
-cor_fundo       equ     cinza   ; !!! TELA DE FUNDO AINDA NAO ESTA SENDO PINTADA !!!
+cor_fundo       equ     preto
 
 ; teclado ibm codigos
 j_breakcode     equ     0a4h
+j_makecode      equ     024h
 k_breakcode     equ     0a5h
+k_makecode      equ     025h
 q_breakcode     equ     090h
 q_makecode      equ     010h
 enter_makecode  equ     09ch
 enter_breakcode equ     01ch
 s_breakcode     equ     08fh
+s_makecode      equ     01fh
 esc             equ     51h
 
 ; configuracoes do menu
@@ -45,6 +48,10 @@ tecla_finalizar equ     q_makecode ; tecla para sair do jogo instantaneamente
 pausar          equ     s_breakcode ; tecla para pausar jogo
 esquerda_menu   equ     j_breakcode ; tecla para selecionar modo de jogo a esquerda
 direita_menu    equ     k_breakcode ; tecla para selecionar modo de jogo a direita
+
+; configuracoes do jogo
+mover_esq       equ     j_makecode ; mover o retangulo para a esquerda
+mover_dir       equ     k_makecode ; mover o retangula para a direita
 
 ; configurações da animação
 raio		equ	10	; raio da bolinha
@@ -75,3 +82,4 @@ int9		equ 	9h
 ; y ???? ; z ???? ;
 ; -> e04de0cd ; <- e04be0cb ; ↑ e048e0c8 ; ↓ e050e0d0
 ; enter 1c9c ; esc 0181 ; shift ; ctrl ; space 39b9 ; alt 38b8
+; REFS: https://web.archive.org/web/20090206085854/http://download.microsoft.com/download/1/6/1/161ba512-40e2-4cc9-843a-923143f3456c/translate.pdf
