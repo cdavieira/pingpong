@@ -26,6 +26,6 @@ p_t		dw	0   ; ponterio p/ int (qnd solta tecla)
 facil_msg       db      "facil"
 medio_msg       db      "medio"
 dificil_msg     db      "dificil"
-cores_menu      db      0,verde,vermelho,vermelho
+cores_menu      db      0,verde,vermelho,vermelho ; [cores_menu+0] guarda o modo atualmente selecionado (0 - facil, 1 - medio e 2 - dif)
 
 %include "asm/config.asm"

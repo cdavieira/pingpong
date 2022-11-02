@@ -1,5 +1,5 @@
 global menu
-extern p_i,p_t,tecla,rect,cor,line,facil_msg,medio_msg,dificil_msg,cores_menu,caixa_verde
+extern p_i,p_t,tecla,rect,cor,line,facil_msg,medio_msg,dificil_msg,cores_menu
 
 menu:
         pushf
@@ -10,7 +10,7 @@ menu:
         push    ax
         mov     al,[cores_menu+2]
         push    ax
-        push    word [cores_menu+3]
+        mov     al,[cores_menu+3]
         push    ax
         call    pintar_menu
         ; mov     cx,0100h
@@ -34,10 +34,53 @@ opcoes_menu:
         mov     word [p_t],bx
 	cmp	byte [bx+tecla],tecla_cont
         je      sair_menu
+        push    ax
+        push    bx
+        xor     ax,ax
         cmp     byte [bx+tecla],esquerda
-        jmp     final_menu
-dir:
+        je      att_menu
         cmp     byte [bx+tecla],direita
+        jne     final_menu
+att_menu:
+        mov     al,byte [cores_menu] ; al = caixa selecionada (0 a 2)
+        mov     bx,0003h
+        div     bl ; 0 < ah (resto) < 2 (ah = resto da div)
+        xchg    al,ah
+        pop     bx
+        cmp     byte [bx+tecla],esquerda
+        push    bx
+        jne     dir
+        dec     ax ; al = al-1
+        jmp     esq
+dir:
+        inc     ax ; al = al+1
+esq:
+        mov     bx,0003h
+        and     ax,00efh
+        div     bl ; (caso al = 0) (ah = resto da div)
+        xchg    al,ah ; al = resto da div
+        and     ax,00ffh
+        mov     bx,ax ; bx = indice da proxima caixa a ser pintada de verde
+        inc     bx ; indice 0 -> [cores_menu+1], indice 1 -> [cores_menu+2] ...
+        mov     al,byte [cores_menu] ; ax = caixa atualmente pintada de verde
+        mov     byte [cores_menu+bx],verde
+        dec     bx
+        mov     byte [cores_menu],bl ; atualizando o indice da caixa atualmente verde
+        mov     bx,ax ; trocando a cor da caixa anteriormente verde para vermelho
+        inc     bx ; indice 0 -> [cores_menu+1], indice 1 -> [cores_menu+2] ...
+        mov     byte [cores_menu+bx],vermelho
+        mov     ax,cor_fundo
+        push    ax
+        push    ax
+        push    ax
+        call    pintar_menu ; apagando caixas
+        mov     al,byte [cores_menu+1]
+        push    ax
+        mov     al,byte [cores_menu+2]
+        push    ax
+        mov     al,byte [cores_menu+3]
+        push    ax
+        call    pintar_menu ; redesenhando caixas com cores att
 final_menu:
         pop     bx
         pop     ax
