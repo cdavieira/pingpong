@@ -1,39 +1,3 @@
-; configuracoes gerais
-telaX		equ	640	; comprimento da tela
-telaY		equ	480	; altura da tela
-colunas         equ     74      ; numero de colunas (localizacao do cursor)
-linhas          equ     30      ; numero de linhas (localizacao do cursor)
-cor_fundo       equ     0
-
-; teclado ibm breakcodes
-esc             equ     51h
-q               equ     090h
-enterr          equ     09ch
-s               equ     09fh
-j               equ     0a4h
-k               equ     0a5h
-
-; configuracoes do menu
-caixaW          equ     telaX/7 ; width/largura das caixas
-caixaH          equ     telaY/7 ; height/altura das caixas
-caixaX          equ     caixaW ; coordenada X da primeira caixa, deve ser menor que 255
-caixaY          equ     3*caixaH ; coordenada Y das caixas, deve ser menor que 255
-textoX          equ     colunas/7+2 ; coordenada X do primeiro texto ; DEPRECATED
-textoY          equ     linhas/2 ; coordenada Y dos textos
-tecla_cont      equ     q
-tecla_finalizar equ     q
-pausar          equ     s
-esquerda        equ     j
-direita         equ     k
-
-; configurações da animação
-raio		equ	10	; raio da bolinha
-ganho		equ	5	; deslocamento nas direções X e Y
-limEX		equ	raio+ganho ; limite esquerdo X (valor mínimo)
-limDX		equ	telaX-raio-ganho ; limite direito X (valor máximo)
-limSY		equ	telaY-raio-ganho ; limite superior Y (valor máximo)
-limIY		equ	raio+ganho ; limite inferior Y (valor mínimo)
-
 ; código de cores
 preto		equ	0
 azul		equ	1
@@ -51,6 +15,44 @@ rosa		equ	12
 magenta_claro	equ	13
 amarelo		equ	14
 branco_intenso	equ	15
+
+; configuracoes gerais
+telaX		equ	640	; comprimento da tela em pixels
+telaY		equ	480	; altura da tela em pixels
+colunas         equ     74      ; numero de colunas (localizacao do cursor)
+linhas          equ     30      ; numero de linhas (localizacao do cursor)
+cor_fundo       equ     preto   ; !!! TELA DE FUNDO AINDA NAO ESTA SENDO PINTADA !!!
+
+; teclado ibm codigos
+j_breakcode     equ     0a4h
+k_breakcode     equ     0a5h
+q_breakcode     equ     090h
+q_makecode      equ     010h
+enter_makecode  equ     09ch
+enter_breakcode equ     01ch
+s_breakcode     equ     08fh
+esc             equ     51h
+
+; configuracoes do menu
+caixaW          equ     telaX/7 ; width/largura das caixas
+caixaH          equ     telaY/7 ; height/altura das caixas
+caixaX          equ     caixaW ; coordenada X da primeira caixa, deve ser menor que 255
+caixaY          equ     3*caixaH ; coordenada Y das caixas, deve ser menor que 255
+textoX          equ     colunas/7+2 ; coordenada X do primeiro texto ; DEPRECATED
+textoY          equ     linhas/2 ; coordenada Y dos textos
+tecla_cont      equ     enter_breakcode
+tecla_finalizar equ     q_makecode
+pausar          equ     s_breakcode
+esquerda_menu   equ     j_breakcode
+direita_menu    equ     k_breakcode
+
+; configurações da animação
+raio		equ	10	; raio da bolinha
+ganho		equ	5	; deslocamento nas direções X e Y
+limEX		equ	raio+ganho ; limite esquerdo X (valor mínimo)
+limDX		equ	telaX-raio-ganho ; limite direito X (valor máximo)
+limSY		equ	telaY-raio-ganho ; limite superior Y (valor máximo)
+limIY		equ	raio+ganho ; limite inferior Y (valor mínimo)
 
 ; interrupcao teclado
 kb_data 	equ 	60h  ; porta de leitura de teclado

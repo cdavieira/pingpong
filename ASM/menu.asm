@@ -34,20 +34,22 @@ opcoes_menu:
         mov     word [p_t],bx
 	cmp	byte [bx+tecla],tecla_cont
         je      sair_menu
+        cmp     byte [bx+tecla],tecla_finalizar
+        je      fechar_jogo
         push    ax
         push    bx
         xor     ax,ax
-        cmp     byte [bx+tecla],esquerda
+        cmp     byte [bx+tecla],esquerda_menu
         je      att_menu
-        cmp     byte [bx+tecla],direita
-        jne     final_menu
+        cmp     byte [bx+tecla],direita_menu
+        jne     final_menu ; caso nenhuma tecla valida tenha sido pressionada
 att_menu:
         mov     al,byte [cores_menu] ; al = caixa selecionada (0 a 2)
         mov     bx,0003h
         div     bl ; 0 < ah (resto) < 2 (ah = resto da div)
         xchg    al,ah
         pop     bx
-        cmp     byte [bx+tecla],esquerda
+        cmp     byte [bx+tecla],esquerda_menu
         push    bx
         jne     dir
         dec     ax ; al = al-1
@@ -85,6 +87,8 @@ final_menu:
         pop     bx
         pop     ax
         jmp     esperar_tecla
+fechar_jogo:
+        mov     byte [cores_menu],0ffh
 sair_menu:
         pop     bx
         pop     ax

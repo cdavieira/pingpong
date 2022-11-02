@@ -39,7 +39,7 @@ tecla_pressionada:
 	push	ds
 	mov	ax,seg cs_dos
 	mov	ds,ax
-	in	al, kb_data ; al armazena o caracter lido no teclado
+	in	al, kb_data ; al armazena o caracter lido no teclado (tanto makecode como breakcode)
 	inc	word [p_i] ; atualizando deslocamento
 	and	word [p_i],7 ; atualizando deslocamento
 	mov	bx,[p_i] ; atualizando deslocamento
