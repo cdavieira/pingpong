@@ -9,6 +9,7 @@ del %lstFolder%\rect.lst
 del %lstFolder%\delay.lst
 del %lstFolder%\fcircle.lst
 del %lstFolder%\gameloop.lst
+del %lstFolder%\bg.lst
 del %objFolder%\main.obj
 del %objFolder%\data.obj
 del %objFolder%\teclado.obj
@@ -19,5 +20,6 @@ del %objFolder%\rect.obj
 del %objFolder%\delay.obj
 del %objFolder%\fcircle.obj
 del %objFolder%\gameloop.obj
+del %objFolder%\bg.obj
 del %projName%.EXE
 cls

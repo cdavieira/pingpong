@@ -77,6 +77,7 @@ final_menu:
 fechar_jogo:
         mov     byte [cores_menu],0ffh
 sair_menu:
+        ; apagando 
         pop     bx
         pop     ax
         popf
@@ -174,15 +175,15 @@ caixa_modo:
         push    cx
         push    dx
         push    es
-        mov     bx,[bp+6]
-        mov     cx,[bp+12]
+        mov     bx,[bp+6] ; bh = numero da pagina, bl = cor
+        mov     cx,[bp+12] ; numero de caracteres da string
         mov     ax,[bp+14]
         mov     ah,textoY
-        mov     dx,ax
+        mov     dx,ax ; dl = coluna, dh = linha
         push    ds
-        pop     es
-        mov     bp,[bp+10]
-        mov     al,0
+        pop     es ; a string a ser impressa deve ser apontada por ES:BP
+        mov     bp,[bp+10] ; a string a ser impressa deve ser apontada por ES:BP
+        mov     al,0 ; al = write mode
         mov     ah,13h
         int     10h
         pop     es

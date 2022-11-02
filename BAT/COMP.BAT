@@ -11,3 +11,4 @@ md %lstFolder%
 %exeFolder%\nasm16 -f obj -o %objFolder%\delay.obj -l %lstFolder%\delay.lst %asmFolder%\delay.asm
 %exeFolder%\nasm16 -f obj -o %objFolder%\fcircle.obj -l %lstFolder%\fcircle.lst %asmFolder%\fcircle.asm
 %exeFolder%\nasm16 -f obj -o %objFolder%\gameloop.obj -l %lstFolder%\gameloop.lst %asmFolder%\gameloop.asm
+%exeFolder%\nasm16 -f obj -o %objFolder%\bg.obj -l %lstFolder%\bg.lst %asmFolder%\bg.asm

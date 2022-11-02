@@ -1,4 +1,4 @@
-global modo_anterior,cor,deltax,deltay,velocidade,ganhoX,ganhoY,cs_dos,offset_dos,tecla_u,tecla,p_i,p_t,teclasc,facil_msg,medio_msg,dificil_msg,cores_menu,caixa_verde
+global modo_anterior,cor,deltax,deltay,velocidade,ganhoX,ganhoY,cs_dos,offset_dos,tecla,p_i,p_t,facil_msg,medio_msg,dificil_msg,cores_menu,loading_msg
 
 segment data
 
@@ -26,6 +26,7 @@ p_t		dw	0   ; ponterio p/ int (qnd solta tecla)
 facil_msg       db      "facil"
 medio_msg       db      "medio"
 dificil_msg     db      "dificil"
+loading_msg     db      "loading..."
 cores_menu      db      0,verde,vermelho,vermelho ; [cores_menu+0] guarda o modo atualmente selecionado (0 - facil, 1 - medio e 2 - dif)
 
 %include "asm/config.asm"
