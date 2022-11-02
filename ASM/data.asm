@@ -9,7 +9,7 @@ deltax		dw      0
 deltay		dw      0
 linha		dw	0
 coluna		dw	0
-velocidade	dw	9000h ; duração de cada frame da animação
+velocidade	dw	80h ; duração de cada frame da animação
 ganhoX 		dw	-1*ganho ; ganho na direção x (valor variável)
 ganhoY		dw	ganho	 ; ganho na direção y (valor variável)
 coordX          dw      telaX/2

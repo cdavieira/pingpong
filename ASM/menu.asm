@@ -13,19 +13,6 @@ menu:
         mov     al,[cores_menu+3]
         push    ax
         call    pintar_menu
-        ; mov     cx,0100h
-; loop2:
-        ; push    cx
-        ; mov     cx,8000h
-; loop3:
-        ; nop
-        ; loop    loop3
-        ; pop     cx
-        ; loop    loop2
-        ; pop     bx
-        ; pop     ax
-        ; popf
-        ; ret
 esperar_tecla:
 	mov	bx,[p_i]
         cmp     [p_t],bx

@@ -40,11 +40,11 @@ caixaX          equ     caixaW ; coordenada X da primeira caixa, deve ser menor 
 caixaY          equ     3*caixaH ; coordenada Y das caixas, deve ser menor que 255
 textoX          equ     colunas/7+2 ; coordenada X do primeiro texto ; DEPRECATED
 textoY          equ     linhas/2 ; coordenada Y dos textos
-tecla_cont      equ     enter_breakcode
-tecla_finalizar equ     q_makecode
-pausar          equ     s_breakcode
-esquerda_menu   equ     j_breakcode
-direita_menu    equ     k_breakcode
+tecla_cont      equ     enter_breakcode ; tecla para selecionar modo e continuar jogo
+tecla_finalizar equ     q_makecode ; tecla para sair do jogo instantaneamente
+pausar          equ     s_breakcode ; tecla para pausar jogo
+esquerda_menu   equ     j_breakcode ; tecla para selecionar modo de jogo a esquerda
+direita_menu    equ     k_breakcode ; tecla para selecionar modo de jogo a direita
 
 ; configurações da animação
 raio		equ	10	; raio da bolinha

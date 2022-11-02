@@ -1,4 +1,4 @@
-extern modo_anterior,trocar_int9,restaurar_int9,menu,cores_menu
+extern modo_anterior,trocar_int9,restaurar_int9,menu,cores_menu,velocidade,gameloop
 
 segment code
 ..start:
@@ -20,10 +20,18 @@ segment code
 
         ; alterar interrupcao padrao do teclado
         call    trocar_int9
+
+nova_partida:
         call	menu
         cmp     byte [cores_menu],0ffh
         je      fecharr_jogo
-	; call	gameloop
+        mov     cl,byte [cores_menu]
+        and     cx,00ffh
+mudar_velocidade:
+        sub     byte [velocidade],20
+        loop    mudar_velocidade
+jogar:
+	call	gameloop
 
 fecharr_jogo:
 	; restaurar interrupcao padrao do teclado

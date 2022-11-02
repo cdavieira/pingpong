@@ -7,18 +7,13 @@ extern velocidade
 delay:
 	push cx ; guardando valor antigo de cx
 	mov cx, word [velocidade]
-	push cx ; freeze2
-	push cx ; freeze3
-freeze1:
-	nop
-	loop freeze1
-	pop cx
-freeze2:
-	nop
-	loop freeze2
-	pop cx
-freeze3:
-	nop
-	loop freeze3
+loop2:
+        push    cx
+        mov     cx,8000h
+loop3:
+        nop
+        loop    loop3
+        pop     cx
+        loop    loop2
 	pop cx ; recuperando valor original de cx
 	ret

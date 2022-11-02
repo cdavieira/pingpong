@@ -1,3 +1,5 @@
 :: linka os objetos contidos na pasta OBJ e cria executavel final
 :: A ordem com que os parametros aparecem importa!!! Devem ficar na mesma ordem com que são chamados durante a rotina de execução do programa, para evitar que o call interprete saltos para trás (de valor negativo) como saltos para frente (de valor positivo), visto que os saltos são do tipo unsigned
-%exeFolder%\freelink %objFolder%\main.obj %objFolder%\teclado.obj %objFolder%\menu.obj %objFolder%\rect.obj %objFolder%\line.obj %objFolder%\plot_xy.obj %objFolder%\data.obj,%projName%.exe
+:: Caso o tamanho do comando exceda o numero maximo de caracteres do msdos
+:: SET OBJ=C:\%objFolder%
+%exeFolder%\freelink %objFolder%\main %objFolder%\teclado %objFolder%\menu %objFolder%\rect %objFolder%\fcircle %objFolder%\line %objFolder%\gameloop %objFolder%\delay %objFolder%\plot_xy %objFolder%\data,%projName%.exe
