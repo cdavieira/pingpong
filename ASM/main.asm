@@ -19,12 +19,12 @@ segment code
 	int	10h
 
         ; alterar interrupcao padrao do teclado
-        ; call    trocar_int9
+        call    trocar_int9
         call	menu
 	; call	gameloop
 
 	; restaurar interrupcao padrao do teclado
-        ; call    restaurar_int9
+        call    restaurar_int9
 	; recuperar modo de video previo
 	mov	ah,0
 	mov	al,[modo_anterior]

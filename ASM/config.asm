@@ -1,20 +1,30 @@
 ; configuracoes gerais
 telaX		equ	640	; comprimento da tela
 telaY		equ	480	; altura da tela
-colunas         equ     30      ; numero de colunas (localizacao do cursor)
-linhas          equ     74      ; numero de linhas (localizacao do cursor)
+colunas         equ     74      ; numero de colunas (localizacao do cursor)
+linhas          equ     30      ; numero de linhas (localizacao do cursor)
+cor_fundo       equ     0
+
+; teclado ibm breakcodes
+esc             equ     51h
+q               equ     090h
+enterr          equ     09ch
+s               equ     09fh
+j               equ     0a4h
+k               equ     0a5h
 
 ; configuracoes do menu
 caixaW          equ     telaX/7 ; width/largura das caixas
 caixaH          equ     telaY/7 ; height/altura das caixas
 caixaX          equ     caixaW ; coordenada X da primeira caixa, deve ser menor que 255
 caixaY          equ     3*caixaH ; coordenada Y das caixas, deve ser menor que 255
-textoX          equ     3*colunas/7
-textoY          equ     linhas/2
-tecla_sair	equ	90h
-seta_dir        equ     0cdh
-seta_esq        equ     0cbh
-coluninha       equ     14h
+textoX          equ     colunas/7+2 ; coordenada X do primeiro texto ; DEPRECATED
+textoY          equ     linhas/2 ; coordenada Y dos textos
+tecla_cont      equ     q
+tecla_finalizar equ     q
+pausar          equ     s
+esquerda        equ     j
+direita         equ     k
 
 ; configurações da animação
 raio		equ	10	; raio da bolinha
