@@ -9,8 +9,8 @@ pintar_fundo:
         push    cx
         push    ax
         xor     ax,ax
-        mov     al,byte [cor]
-        push    ax ; guardando cor anteriormente guardada na var. cor
+        mov     al,[cor]
+        push    ax ; guardando cor anterior
 mensagem:
         ; imprimir mensagem de carregamento
         push    bp
@@ -55,7 +55,5 @@ colorir:
         pop     cx
         pop     bp
         ret     4
-
-
 
 %include "asm/config.asm"

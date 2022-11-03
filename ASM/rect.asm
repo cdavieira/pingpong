@@ -1,14 +1,14 @@
-global rect
+global rect,frect,rectPretty
 extern cor,line
 
 ; Desenha um retangulo na tela dada coordenada inicial (canto inferior esquerdo), largura, altura e cor
 ; Fica ao encargo do programador garantir que as coordenadas dos pontos do retangulo estejam nos limites da tela!
 ; Pilha antes da chamada:
-    ; cor   (word) <- bp+16
-    ; largura (word) <- bp+14
-    ; altura (word) <- bp+12
-    ; coordenada X (word) <- bp+10
-    ; coordenada Y (word) <- bp+8
+    ; cor   (word) <- bp+16 (push)
+    ; largura (word) <- bp+14 (push)
+    ; altura (word) <- bp+12 (push)
+    ; coordenada X (word) <- bp+10 (push)
+    ; coordenada Y (word) <- bp+8 (push)
     ; endereço de retorno <- bp+6
     ; ax <- bp+4
     ; bx <- bp+2
@@ -59,11 +59,11 @@ margem_bot:
 ; Desenha um retangulo pintado na tela dada coordenada inicial (canto inferior esquerdo), largura, altura e cor
 ; Fica ao encargo do programador garantir que as coordenadas dos pontos do retangulo estejam nos limites da tela!
 ; Pilha antes da chamada:
-    ; cor   (word) <- bp+16
-    ; largura (word) <- bp+14
-    ; altura (word) <- bp+12
-    ; coordenada X (word) <- bp+10
-    ; coordenada Y (word) <- bp+8
+    ; cor   (word) <- bp+16 (push)
+    ; largura (word) <- bp+14 (push)
+    ; altura (word) <- bp+12 (push)
+    ; coordenada X (word) <- bp+10 (push)
+    ; coordenada Y (word) <- bp+8 (push)
     ; endereço de retorno <- bp+6
     ; ax <- bp+4
     ; bx <- bp+2
@@ -100,3 +100,32 @@ pintar_frect:
         pop     bx
         pop     ax
         ret     10
+
+; Desenha um retangulo pintado e bordado na tela dada coordenada inicial (canto inferior esquerdo), largura, altura, cor de fundo e cor de borda
+; Fica ao encargo do programador garantir que as coordenadas dos pontos do retangulo estejam nos limites da tela!
+; Pilha antes da chamada:
+    ; cor de borda (word) <- bp+14 (push)
+    ; cor de fundo (word) <- bp+12 (push)
+    ; largura (word) <- bp+10 (push)
+    ; altura (word) <- bp+8 (push)
+    ; coordenada X (word) <- bp+6 (push)
+    ; coordenada Y (word) <- bp+4 (push)
+    ; endereço de retorno <- bp+2
+    ; bp <- bp
+rectPretty:
+        push    bp
+        mov     bp,sp
+        push    word [bp+14]
+        push    word [bp+10]
+        push    word [bp+8]
+        push    word [bp+6]
+        push    word [bp+4]
+        call    rect
+        push    word [bp+12]
+        push    word [bp+10]
+        push    word [bp+8]
+        push    word [bp+6]
+        push    word [bp+4]
+        call    frect
+        pop     bp
+        ret     12

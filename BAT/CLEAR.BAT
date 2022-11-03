@@ -7,7 +7,7 @@ del %lstFolder%\plot_xy.lst
 del %lstFolder%\menu.lst
 del %lstFolder%\rect.lst
 del %lstFolder%\delay.lst
-del %lstFolder%\circle.lst
+del %lstFolder%\circ.lst
 del %lstFolder%\gameloop.lst
 del %lstFolder%\bg.lst
 del %lstFolder%\anim.lst
@@ -19,7 +19,7 @@ del %objFolder%\plot_xy.obj
 del %objFolder%\menu.obj
 del %objFolder%\rect.obj
 del %objFolder%\delay.obj
-del %objFolder%\circle.obj
+del %objFolder%\circ.obj
 del %objFolder%\gameloop.obj
 del %objFolder%\bg.obj
 del %objFolder%\anim.obj

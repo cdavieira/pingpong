@@ -1,5 +1,5 @@
 global gameloop
-extern  p_i,p_t,velocidade,tecla,janela,rect,cor,line
+extern  p_i,p_t,velocidade,tecla,janela,rect,cor,line,rectPretty,retX,frect
 
 gameloop:
         pushf
@@ -9,7 +9,7 @@ frame_inicial:
         call    janela ; desenhando contorno
         xor     ax,ax
         mov     al,[cor]
-        push    ax
+        push    ax ; guardando a cor antiga
         mov     byte [cor],cor_fundo ; apagando borda branca inferior
         xor     ax,ax
         push    ax ; carregando x do ponto inicial (0)
@@ -19,7 +19,19 @@ frame_inicial:
         xor     ax,ax
         push    ax ; carregando y do ponto final (0)
         call    line
-        ; testar frect
+        ; push    ax ; carregando cor da borda do retangulo
+        ; mov     al,retCor
+        ; push    ax ; carregando cor do retangulo
+        ; mov     ax,retW
+        ; push    ax ; carregando largura do retangulo
+        ; mov     ax,retH
+        ; push    ax ; carregando altura do retangulo
+        ; mov     ax,[retX]
+        ; sub     ax,retW/2
+        ; push    ax ; carregando coordenada x do canto inferior esquerdo do retangulo
+        ; xor     ax,ax
+        ; push    ax ; carregando coordenada y do canto inferior esquerdo do retangulo
+        ; call    frect
 esperar_acao:
 	mov	bx,[p_i]
         cmp     [p_t],bx
@@ -50,7 +62,7 @@ freeze:
         ret
 gameover:
         pop     ax
-        mov     [cor],al
+        mov     [cor],al ; recuperando cor antiga
         pop     bx
         pop     ax
         popf

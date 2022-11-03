@@ -9,7 +9,7 @@ md %lstFolder%
 %exeFolder%\nasm16 -f obj -o %objFolder%\line.obj -l %lstFolder%\line.lst %asmFolder%\line.asm
 %exeFolder%\nasm16 -f obj -o %objFolder%\rect.obj -l %lstFolder%\rect.lst %asmFolder%\rect.asm
 %exeFolder%\nasm16 -f obj -o %objFolder%\delay.obj -l %lstFolder%\delay.lst %asmFolder%\delay.asm
-%exeFolder%\nasm16 -f obj -o %objFolder%\circle.obj -l %lstFolder%\circle.lst %asmFolder%\circle.asm
+%exeFolder%\nasm16 -f obj -o %objFolder%\circ.obj -l %lstFolder%\circ.lst %asmFolder%\circ.asm
 %exeFolder%\nasm16 -f obj -o %objFolder%\gameloop.obj -l %lstFolder%\gameloop.lst %asmFolder%\gameloop.asm
 %exeFolder%\nasm16 -f obj -o %objFolder%\bg.obj -l %lstFolder%\bg.lst %asmFolder%\bg.asm
 %exeFolder%\nasm16 -f obj -o %objFolder%\anim.obj -l %lstFolder%\anim.lst %asmFolder%\anim.asm
