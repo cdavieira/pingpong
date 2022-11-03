@@ -1,4 +1,5 @@
-extern modo_anterior,trocar_int9,restaurar_int9,menu,cores_menu,velocidade,gameloop,pintar_fundo,loading_msg,cor
+extern modo_anterior,cores_menu,velocidade,loading_msg,cor
+extern trocar_int9,restaurar_int9,menu,gameloop,pintar_fundo
 
 segment code
 ..start:
@@ -21,7 +22,7 @@ nova_partida:
 	; alterar modo de video para grafico 640x480 16 cores
 	mov	word ax,0012h
 	int	10h
-        call	menu
+        call	menu ; iniciando cena do menu
         cmp     byte [cores_menu],0ffh
         je      fecharr_jogo
         mov     cl,byte [cores_menu]

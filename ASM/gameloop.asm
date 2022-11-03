@@ -1,5 +1,6 @@
 global gameloop
-extern  p_i,p_t,velocidade,tecla,janela,rect,cor,line,rectPretty,retX,frect
+extern p_i,p_t,tecla,cor,playerAction,pause_msg
+extern janela,line,pintar_frame
 
 gameloop:
         pushf
@@ -19,25 +20,15 @@ frame_inicial:
         xor     ax,ax
         push    ax ; carregando y do ponto final (0)
         call    line
-        ; push    ax ; carregando cor da borda do retangulo
-        ; mov     al,retCor
-        ; push    ax ; carregando cor do retangulo
-        ; mov     ax,retW
-        ; push    ax ; carregando largura do retangulo
-        ; mov     ax,retH
-        ; push    ax ; carregando altura do retangulo
-        ; mov     ax,[retX]
-        ; sub     ax,retW/2
-        ; push    ax ; carregando coordenada x do canto inferior esquerdo do retangulo
-        ; xor     ax,ax
-        ; push    ax ; carregando coordenada y do canto inferior esquerdo do retangulo
-        ; call    frect
 esperar_acao:
+        call    pintar_frame
+        mov     byte [playerAction],0
+loop3:
 	mov	bx,[p_i]
         cmp     [p_t],bx
         ; atualizar posicao da bolinha
         ; checar se o player perdeu
-        je      esperar_acao
+        je      loop3
 decodificar:
         mov     word [p_t],bx
 	cmp	byte [bx+tecla],tecla_finalizar
@@ -50,9 +41,13 @@ decodificar:
 nao_pausar:
 	cmp	byte [bx+tecla],mover_esq
         jne     outra_tecla1
-        jmp     fim_decode
+        jmp     tecla_valida
 outra_tecla1:
 	cmp	byte [bx+tecla],mover_dir
+        jne     fim_decode
+        jmp     tecla_valida
+tecla_valida:
+        mov     byte [playerAction],1
 fim_decode:
         jmp     esperar_acao
 freeze:

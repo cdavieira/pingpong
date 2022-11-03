@@ -9,5 +9,7 @@ if "%1"=="data" %exeFolder%\nasm16 -f obj -o %objFolder%\data.obj -l %lstFolder%
 if "%1"=="bg" %exeFolder%\nasm16 -f obj -o %objFolder%\bg.obj -l %lstFolder%\bg.lst %asmFolder%\bg.asm
 if "%1"=="gameloop" %exeFolder%\nasm16 -f obj -o %objFolder%\gameloop.obj -l %lstFolder%\gameloop.lst %asmFolder%\gameloop.asm
 if "%1"=="anim" %exeFolder%\nasm16 -f obj -o %objFolder%\anim.obj -l %lstFolder%\anim.lst %asmFolder%\anim.asm
+if "%1"=="rect" %exeFolder%\nasm16 -f obj -o %objFolder%\rect.obj -l %lstFolder%\rect.lst %asmFolder%\rect.asm
+if "%1"=="circ" %exeFolder%\nasm16 -f obj -o %objFolder%\circ.obj -l %lstFolder%\circ.lst %asmFolder%\circ.asm
 if "%1"=="" call .\bat\COMP.BAT
 if "%1"=="link" call .\bat\LINK.BAT

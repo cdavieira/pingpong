@@ -1,4 +1,4 @@
-global rect,frect,rectPretty
+global rect,rectPretty
 extern cor,line
 
 ; Desenha um retangulo na tela dada coordenada inicial (canto inferior esquerdo), largura, altura e cor
@@ -74,9 +74,9 @@ frect:
         push    ax
         push    bx
         push    bp
+        mov     bp,sp
         push    cx
         push    dx
-        mov     bp,sp
         xor     ax,ax
         mov     ax,[bp+16]
         mov     byte [cor],al
@@ -115,17 +115,17 @@ pintar_frect:
 rectPretty:
         push    bp
         mov     bp,sp
-        push    word [bp+14]
-        push    word [bp+10]
-        push    word [bp+8]
-        push    word [bp+6]
-        push    word [bp+4]
-        call    rect
         push    word [bp+12]
         push    word [bp+10]
         push    word [bp+8]
         push    word [bp+6]
         push    word [bp+4]
         call    frect
+        push    word [bp+14]
+        push    word [bp+10]
+        push    word [bp+8]
+        push    word [bp+6]
+        push    word [bp+4]
+        call    rect
         pop     bp
         ret     12

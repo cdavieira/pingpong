@@ -1,5 +1,6 @@
 global menu,janela
-extern p_i,p_t,tecla,rect,cor,line,facil_msg,medio_msg,dificil_msg,cores_menu
+extern p_i,p_t,tecla,cor,facil_msg,medio_msg,dificil_msg,cores_menu
+extern rect,line
 
 menu:
         pushf

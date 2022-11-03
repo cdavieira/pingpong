@@ -1,5 +1,6 @@
-global animation
-extern full_circle,cor,velBolaY,velBolaX,delay,modo_anterior
+global animation,pintar_frame,pintar_ret
+extern cor,velBolaY,velBolaX,delay,retX,bolaX,bolaY,playerAction
+extern circPretty,rectPretty,full_circle
 
 ; descrição
 ; A função animation desenha os frames da animação de um circulo vermelho que quica pelas paredes sob um angulo de 45 graus.
@@ -83,5 +84,54 @@ parar:
 	pop ax
 	pop ax
 	ret
+
+; Desenha na tela o retangulo do jogador de acordo com suas coordenadas atuais
+pintar_ret:
+        push    ax
+        xor     ax,ax
+        push    ax ; carregando cor da borda do retangulo
+        mov     al,retCor
+        push    ax ; carregando cor do retangulo
+        mov     ax,retW
+        push    ax ; carregando largura do retangulo
+        mov     ax,retH
+        push    ax ; carregando altura do retangulo
+        mov     ax,[retX]
+        sub     ax,retW/2
+        push    ax ; carregando coordenada x do canto inferior esquerdo do retangulo
+        xor     ax,ax
+        push    ax ; carregando coordenada y do canto inferior esquerdo do retangulo
+        call    rectPretty
+        pop     ax
+        ret
+
+; Desenha na tela a bola de acordo com suas coordenadas atuais
+pintar_bola:
+        push    ax
+        xor     ax,ax
+        mov     al,bolaBorda
+        push    ax ; carregando cor da borda do circulo
+        mov     al,bolaCor
+        push    ax ; carregando cor de fundo do circulo
+        mov     ax,[bolaX]
+        push    ax ; carregando coordenada x inicial do circulo
+        xor     ax,ax
+        mov     ax,[bolaY]
+        push    ax ; carregando coordenada y inicial do circulo
+        xor     ax,ax
+        mov     ax,raio
+        push    ax ; carregando raio do circulo
+        call    circPretty
+        pop     ax
+        ret
+
+; Pinta na tela o circulo e o retangulo do jogador de acordo com suas coordenadas atuais. O retangulo eh apenas atualizado caso o jogador tenha movido
+pintar_frame:
+        cmp     byte [playerAction],0
+        jz      nao_att_ret
+        call    pintar_ret
+nao_att_ret:
+        call    pintar_bola
+        ret
 
 %include "asm/config.asm"

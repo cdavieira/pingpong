@@ -1,9 +1,9 @@
-;    ARQUIVO CEDIDO PELO PROFESSOR ENQUANTO LECIONAVA
+;    FUNCOES FULL_CIRCLE E CIRCLE CEDIDAS PELO PROFESSOR ENQUANTO LECIONAVA
 ;    funcao full_circle
 ;    push xc; push yc; push r; call full_circle;  (xc+r<639,yc+r<479)e(xc-r>0,yc-r>0)
 
-global full_circle,circle
-extern line,plot_xy
+global full_circle,circle,circPretty
+extern line,plot_xy,cor
 
 full_circle:
 	push 	bp
@@ -257,8 +257,6 @@ plotar:
 	cmp	cx,dx
 	jb	fim_circle  ;se cx (y) est� abaixo de dx (x), termina     
 	jmp	stay	;se cx (y) est� acima de dx (x), continua no loop
-	
-	
 fim_circle:
 	pop	di
 	pop	si
@@ -269,3 +267,31 @@ fim_circle:
 	popf
 	pop	bp
 	ret	6
+
+; Desenha um circulo pintado e bordado na tela dada coordenada X e Y do ponto central, raio, cor de fundo e cor de borda
+; Parametros: cor da borda (bp+12), cor de fundo (bp+10), coordenada X (bp+8), coordenada Y (bp+6), raio (bp+4)
+circPretty:
+        push    bp
+        mov     bp,sp
+        push    ax
+        xor     ax,ax
+        mov     al,[cor]
+        push    ax ; guardando cor anterior
+        mov     ax,[bp+10]
+        mov     [cor],al ; passando cor de fundo do circulo
+        push    word [bp+8]
+        push    word [bp+6]
+        push    word [bp+4]
+        call    full_circle
+        xor     ax,ax
+        mov     ax,[bp+12]
+        mov     [cor],al ; passando cor da borda do circulo
+        push    word [bp+8]
+        push    word [bp+6]
+        push    word [bp+4]
+        call    circle
+        pop     ax
+        mov     [cor],al ; restaurando cor anterior
+        pop     ax
+        pop     bp
+        ret     10
