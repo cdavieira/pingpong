@@ -21,7 +21,7 @@ telaX		equ	640	; comprimento da tela em pixels
 telaY		equ	480	; altura da tela em pixels
 colunas         equ     74      ; numero de colunas (localizacao do cursor)
 linhas          equ     30      ; numero de linhas (localizacao do cursor)
-cor_fundo       equ     branco_intenso
+cor_fundo       equ     preto
 
 ; teclado ibm codigos
 j_breakcode     equ     0a4h
@@ -68,7 +68,7 @@ limSY		equ	telaY-raio-bolaVel ; limite superior Y (valor máximo)
 limIY		equ	retH+raio+bolaVel ; limite inferior Y (valor mínimo)
 retCor          equ     azul
 retBorda        equ     preto ; cor da borda do retangulo
-retVel          equ     10 ; velocidade do retangulo
+retVel          equ     15 ; velocidade do retangulo
 bolaCor         equ     verde
 bolaBorda       equ     preto ; cor da borda da bola
 minRetX         equ     retW/2+retVel
