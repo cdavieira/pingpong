@@ -1,89 +1,117 @@
-global animation,pintar_frame,pintar_ret
-extern cor,velBolaY,velBolaX,delay,retX,bolaX,bolaY,playerAction
+global anim_bola,anim_ret,pintar_frame
+extern cor,velBolaY,velBolaX,delay,retX,bolaX,bolaY,canMoveRet,velRetX,tecla,p_t
 extern circPretty,rectPretty,full_circle
 
-; descrição
-; A função animation desenha os frames da animação de um circulo vermelho que quica pelas paredes sob um angulo de 45 graus.
-; Para isso, internamente são passados 8 valores a cada frame para a stack (ordem com que os valores são inseridos na stack):
-; 1º push: coordenada x atual do centro do circulo
-; 2º push: coordenada y atual do centro do circulo
-; 3º push: coordenada x atual do centro do circulo
-; 4º push: coordenada y atual do centro do circulo
-; 5º push: raio do circulo
-; 6º push: coordenada x atual do centro do circulo
-; 7º push: coordenada y atual do centro do circulo
-; 8º push: raio do circulo
-; Os valores 8, 7 e 6 servirão de parâmetros para a função full_circle, que desenhara o circulo vermelho na tela
-; Os valores 5, 4 e 3 servirão de parâmetros para outra chamada a função full_circle, que apagara o circulo vermelho previamente desenhado ao desenhar na mesma posição anterior um circulo com a mesma cor de fundo da tela
-; Os valores 2 e 1 servirão para atualizar as coordenadas atuais com os valores armazenados em velBolaY e velBolaX, respectivamente
-; Após desenhar um frame, todos os valores previamente passados para a stack ja foram removidos, de modo que no retorno da função não restam nenhum valor adicionado na stack.
-animation:
-        ret
-	; frame inicial
-	mov byte[cor],vermelho
-	mov word ax,telaX/2
-	push ax
-	mov word ax,telaY/2
-	push ax
-	mov word ax,telaX/2
-	push ax
-	mov word ax,telaY/2
-	push ax
-	mov word ax,raio
-	push ax
-	mov word ax,telaX/2
-	push ax
-	mov word ax,telaY/2
-	push ax
-	mov word ax,raio
-	push ax
-render_frame:
-	mov byte[cor],vermelho
-	call full_circle ; desenhando frame
-	call delay	 ; fazendo o frame persistir na tela por um certo tempo
-	mov byte[cor],preto ; mudando cor do circulo para a mesma que a de fundo
-	call full_circle ; apagando o circulo vermelho com um circulo da mesma cor que o fundo
-	pop ax ; obtendo y
-	cmp ax,limIY ; testando limite inferior de Y
-	jle  mudar_sentidoY
-	cmp ax,limSY ; testando limite superior de Y
-	jge  mudar_sentidoY
-	jmp nao_mudar_sentidoY
+; A função anim_bola atualiza a posicao do circulo em movimento, que quica pelas paredes sob um angulo de 45 graus.
+anim_bola:
+        push    ax
+        push    bx
+        push    dx
+        mov     ax,[bolaY]
+        mov     bx,[bolaX]
+        cmp     ax,limSY
+        jle     nao_mudar_sentidoY
+        cmp     ax,limIY
+        jg      nao_mudar_sentidoY
+        xor     dx,dx
+        mov     dx,[retX] ; assumindo que a posicao do retX nunca excedera os limites da tela
+        sub     dx,retW/2
+        sub     dx,raio
+        cmp     bx,dx; checando se a bola toca o retangulo
+        jl      nao_mudar_sentidoY
+        xor     dx,dx
+        mov     dx,[retX] ; assumindo que a posicao do retX nunca excedera os limites da tela
+        add     dx,retW/2
+        add     dx,raio
+        cmp     bx,dx
+        jg      nao_mudar_sentidoY
 mudar_sentidoY:
-	neg  word [velBolaY]
+	neg     word [velBolaY]
 nao_mudar_sentidoY:
-	mov bx,ax ; store y
-	pop ax ; obtendo x
-	cmp ax,limEX ; testando limite esquerdo de X
-	jle  mudar_sentidoX
-	cmp ax,limDX ; testando limite direito de X
-	jge mudar_sentidoX
-	jmp nao_mudar_sentidoX
+	cmp	bx,limEX ; testando limite esquerdo de X
+	jle	mudar_sentidoX
+	cmp	bx,limDX ; testando limite direito de X
+	jle	nao_mudar_sentidoX
 mudar_sentidoX:
-	neg  word [velBolaX]
+	neg     word [velBolaX]
 nao_mudar_sentidoX:
-	add ax,word [velBolaX]
-	push ax
-	add bx,word [velBolaY]
-	push bx ; atualizando valores para que o proximo frame seja desenhado
-	push ax
-	push bx
-	mov dx,raio
-	push dx
-	push ax
-	push bx
-	push dx
+	add	ax,word [velBolaY]
+	add	bx,word [velBolaX]
+        mov     [bolaY],ax
+        mov     [bolaX],bx
 parar:
-	; desempilhar os parametros que ainda estao na pilha
-	pop ax
-	pop ax
-	pop ax
-	pop ax
-	pop ax
-	pop ax
-	pop ax
-	pop ax
+        pop     dx
+        pop     bx
+        pop     ax
 	ret
+
+; A função anim_ret atualiza a posicao do retangulo do jogador
+anim_ret:
+        push    ax
+        mov     ax,[retX]
+        cmp     ax,minRetX
+        jle     disable_leftkey
+        cmp     ax,maxRetX
+        jg      disable_rightkey
+        jmp     checar_ambas
+disable_leftkey:
+        call    rightkey_action
+        jmp     parar1
+disable_rightkey:
+        call    leftkey_action
+        jmp     parar1
+checar_ambas:
+        call    leftkey_action
+        call    rightkey_action
+parar1:
+        pop     ax
+	ret
+
+; controla a renderizacao sujeita a acao de mover o retangulo do jogador para esquerda
+leftkey_action:
+        push    bx
+        push    ax
+        mov     bx,[p_t]
+        cmp     byte [tecla+bx],mover_esq
+        je      checar_sentido_esq
+        jmp     parar2
+checar_sentido_esq:
+        cmp     word [velRetX],0
+        jns     mudar_sentidoX1
+        jmp     nao_mudar_sentidoX1
+mudar_sentidoX1:
+	neg     word [velRetX]
+nao_mudar_sentidoX1:
+        mov     ax,[retX]
+	add	ax,word [velRetX]
+        mov     [retX],ax
+parar2:
+        pop     ax
+        pop     bx
+        ret
+
+; controla a renderizacao sujeita a acao de mover o retangulo do jogador para direita
+rightkey_action:
+        push    bx
+        push    ax
+        mov     bx,[p_t]
+        cmp     byte [tecla+bx],mover_dir
+        je      checar_sentido_dir
+        jmp     parar3
+checar_sentido_dir:
+        cmp     word [velRetX],0
+        js      mudar_sentidoX2
+        jmp     nao_mudar_sentidoX2
+mudar_sentidoX2:
+	neg     word [velRetX]
+nao_mudar_sentidoX2:
+        mov     ax,[retX]
+	add	ax,word [velRetX]
+        mov     [retX],ax
+parar3:
+        pop     ax
+        pop     bx
+        ret
 
 ; Desenha na tela o retangulo do jogador de acordo com suas coordenadas atuais
 pintar_ret:
@@ -91,6 +119,26 @@ pintar_ret:
         xor     ax,ax
         push    ax ; carregando cor da borda do retangulo
         mov     al,retCor
+        push    ax ; carregando cor do retangulo
+        mov     ax,retW
+        push    ax ; carregando largura do retangulo
+        mov     ax,retH
+        push    ax ; carregando altura do retangulo
+        mov     ax,[retX]
+        sub     ax,retW/2
+        push    ax ; carregando coordenada x do canto inferior esquerdo do retangulo
+        xor     ax,ax
+        push    ax ; carregando coordenada y do canto inferior esquerdo do retangulo
+        call    rectPretty
+        pop     ax
+        ret
+
+apagar_ret:
+        push    ax
+        xor     ax,ax
+        mov     ax,cor_fundo
+        push    ax ; carregando cor da borda do retangulo
+        mov     al,cor_fundo
         push    ax ; carregando cor do retangulo
         mov     ax,retW
         push    ax ; carregando largura do retangulo
@@ -125,13 +173,41 @@ pintar_bola:
         pop     ax
         ret
 
+apagar_bola:
+        push    ax
+        xor     ax,ax
+        mov     al,cor_fundo
+        push    ax ; carregando cor da borda do circulo
+        mov     al,cor_fundo
+        push    ax ; carregando cor de fundo do circulo
+        mov     ax,[bolaX]
+        push    ax ; carregando coordenada x inicial do circulo
+        xor     ax,ax
+        mov     ax,[bolaY]
+        push    ax ; carregando coordenada y inicial do circulo
+        xor     ax,ax
+        mov     ax,raio
+        push    ax ; carregando raio do circulo
+        call    circPretty
+        pop     ax
+        ret
+
 ; Pinta na tela o circulo e o retangulo do jogador de acordo com suas coordenadas atuais. O retangulo eh apenas atualizado caso o jogador tenha movido
 pintar_frame:
-        cmp     byte [playerAction],0
+        cmp     byte [canMoveRet],0
         jz      nao_att_ret
+        call    apagar_ret
+        call    anim_ret
         call    pintar_ret
 nao_att_ret:
+        call    apagar_bola
+        call    anim_bola
         call    pintar_bola
+        ret
+
+apagar_frame:
+        call    apagar_ret
+        call    apagar_bola
         ret
 
 %include "asm/config.asm"

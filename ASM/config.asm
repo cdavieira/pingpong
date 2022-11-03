@@ -55,18 +55,20 @@ mover_dir       equ     k_makecode ; mover o retangula para a direita
 
 ; configurações da animação
 raio		equ	10	; raio da bolinha
-ganho		equ	5	; deslocamento nas direções X e Y
-limEX		equ	raio+ganho ; limite esquerdo X (valor mínimo)
-limDX		equ	telaX-raio-ganho ; limite direito X (valor máximo)
-limSY		equ	telaY-raio-ganho ; limite superior Y (valor máximo)
-limIY		equ	raio+ganho ; limite inferior Y (valor mínimo)
+bolaVel		equ	5	; deslocamento nas direções X e Y
 retH            equ     20 ; altura do retangulo
 retW            equ     40 ; largura do retangulo
+limEX		equ	raio+bolaVel ; limite esquerdo X (valor mínimo)
+limDX		equ	telaX-raio-bolaVel ; limite direito X (valor máximo)
+limSY		equ	telaY-raio-bolaVel ; limite superior Y (valor máximo)
+limIY		equ	retH+raio+bolaVel ; limite inferior Y (valor mínimo)
 retCor          equ     azul
 retBorda        equ     preto ; cor da borda do retangulo
 retVel          equ     2 ; velocidade do retangulo
 bolaCor         equ     verde
 bolaBorda       equ     preto ; cor da borda da bola
+minRetX         equ     retW/2+retVel
+maxRetX         equ     telaX-retW/2-1-retVel
 
 ; interrupcao teclado
 kb_data 	equ 	60h  ; porta de leitura de teclado

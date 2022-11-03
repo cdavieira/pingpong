@@ -88,7 +88,7 @@ pintar_frect:
         add     dx,cx
         push    dx ; x inicial = x ponto inicial + indice linha (cx)
         push    bx ; y inicial = y ponto inicial
-        push    dx ; x final = x ponto inicial + indice linha (cx) 
+        push    dx ; x final = x ponto inicial + indice linha (cx)
         mov     dx,bx
         add     dx,[bp+12] ; y final = y inicial + altura do retangulo
         push    dx

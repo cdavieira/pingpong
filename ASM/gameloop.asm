@@ -1,6 +1,6 @@
 global gameloop
-extern p_i,p_t,tecla,cor,playerAction,pause_msg
-extern janela,line,pintar_frame
+extern p_i,p_t,tecla,cor,canMoveRet,pause_msg,bolaY,retX
+extern janela,line,pintar_frame,anim_bola,anim_ret
 
 gameloop:
         pushf
@@ -22,12 +22,16 @@ frame_inicial:
         call    line
 esperar_acao:
         call    pintar_frame
-        mov     byte [playerAction],0
+        mov     byte [canMoveRet],0
 loop3:
+        mov     ax,[bolaY]
+        sub     ax,raio
+        cmp     ax,retH
+        jl      gameover ; termina se o ponto inferior do circulo tiver passado da borda/altura do retangulo
+        call    pintar_frame
+        ; CHECAR SE O PLAYER PERDEU
 	mov	bx,[p_i]
         cmp     [p_t],bx
-        ; atualizar posicao da bolinha
-        ; checar se o player perdeu
         je      loop3
 decodificar:
         mov     word [p_t],bx
@@ -41,26 +45,30 @@ decodificar:
 nao_pausar:
 	cmp	byte [bx+tecla],mover_esq
         jne     outra_tecla1
-        jmp     tecla_valida
+        cmp     word [retX],minRetX ; checando se a posicao do ret pode ser atualizada ou nao
+        jg      mover_ret ; signed
+        jmp     fim_decode
 outra_tecla1:
 	cmp	byte [bx+tecla],mover_dir
         jne     fim_decode
-        jmp     tecla_valida
-tecla_valida:
-        mov     byte [playerAction],1
+        cmp     word [retX],maxRetX ; checando se a posicao do ret pode ser atualizada ou nao
+        jl      mover_ret ; signed
+        jmp     fim_decode
+mover_ret:
+        mov     byte [canMoveRet],1
 fim_decode:
         jmp     esperar_acao
-freeze:
-	mov	bx,[p_i]
-        cmp     byte [bx+tecla],s_makecode
-        jne     freeze
-        ret
 gameover:
         pop     ax
         mov     [cor],al ; recuperando cor antiga
         pop     bx
         pop     ax
         popf
+        ret
+freeze:
+	mov	bx,[p_i]
+        cmp     byte [bx+tecla],s_makecode
+        jne     freeze
         ret
 
 %include "asm/config.asm"
