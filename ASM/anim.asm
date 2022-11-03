@@ -10,7 +10,7 @@ anim_bola:
         mov     ax,[bolaY]
         mov     bx,[bolaX]
         cmp     ax,limSY
-        jle     nao_mudar_sentidoY
+        jge     mudar_sentidoY
         cmp     ax,limIY
         jg      nao_mudar_sentidoY
         xor     dx,dx

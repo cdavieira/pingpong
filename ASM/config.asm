@@ -21,7 +21,7 @@ telaX		equ	640	; comprimento da tela em pixels
 telaY		equ	480	; altura da tela em pixels
 colunas         equ     74      ; numero de colunas (localizacao do cursor)
 linhas          equ     30      ; numero de linhas (localizacao do cursor)
-cor_fundo       equ     cinza
+cor_fundo       equ     branco_intenso
 
 ; teclado ibm codigos
 j_breakcode     equ     0a4h
@@ -32,8 +32,10 @@ q_breakcode     equ     090h
 q_makecode      equ     010h
 enter_makecode  equ     09ch
 enter_breakcode equ     01ch
-s_breakcode     equ     08fh
+s_breakcode     equ     09fh
 s_makecode      equ     01fh
+v_makecode      equ     02fh
+v_breakcode     equ     0afh
 esc             equ     51h
 
 ; configuracoes do menu
@@ -49,9 +51,11 @@ direita_menu    equ     k_breakcode ; tecla para selecionar modo de jogo a direi
 
 ; configuracoes do jogo
 tecla_finalizar equ     q_makecode ; tecla para sair do jogo instantaneamente
-pausar          equ     s_breakcode ; tecla para pausar jogo
+pausar          equ     s_makecode ; tecla para pausar jogo
 mover_esq       equ     j_makecode ; mover o retangulo para a esquerda
 mover_dir       equ     k_makecode ; mover o retangula para a direita
+aux_key1        equ     v_makecode ; chave de controle temporaria para certas situacoes ; nao afeta jogo
+aux_key2        equ     v_breakcode ; chave de controle temporaria para certas situacoes ; nao afeta jogo
 
 ; configurações da animação
 raio		equ	10	; raio da bolinha
@@ -64,7 +68,7 @@ limSY		equ	telaY-raio-bolaVel ; limite superior Y (valor máximo)
 limIY		equ	retH+raio+bolaVel ; limite inferior Y (valor mínimo)
 retCor          equ     azul
 retBorda        equ     preto ; cor da borda do retangulo
-retVel          equ     2 ; velocidade do retangulo
+retVel          equ     10 ; velocidade do retangulo
 bolaCor         equ     verde
 bolaBorda       equ     preto ; cor da borda da bola
 minRetX         equ     retW/2+retVel

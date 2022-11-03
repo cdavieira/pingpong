@@ -1,6 +1,6 @@
 global gameloop
 extern p_i,p_t,tecla,cor,canMoveRet,pause_msg,bolaY,retX
-extern janela,line,pintar_frame,anim_bola,anim_ret
+extern janela,line,pintar_frame
 
 gameloop:
         pushf
@@ -11,7 +11,7 @@ frame_inicial:
         xor     ax,ax
         mov     al,[cor]
         push    ax ; guardando a cor antiga
-        mov     byte [cor],cor_fundo ; apagando borda branca inferior
+        mov     byte [cor],cor_fundo
         xor     ax,ax
         push    ax ; carregando x do ponto inicial (0)
         push    ax ; carregando y do ponto inicial (0)
@@ -19,7 +19,7 @@ frame_inicial:
         push    ax ; carregando x do ponto final (telaX-1)
         xor     ax,ax
         push    ax ; carregando y do ponto final (0)
-        call    line
+        call    line ; apagando borda branca inferior
 esperar_acao:
         call    pintar_frame
         mov     byte [canMoveRet],0
@@ -41,6 +41,7 @@ decodificar:
         jne     nao_pausar
         ; TALVEZ COLOCAR AQUI PARA EXIBIR UMA MENSAGEM DE PAUSE NA TELA
         call    freeze
+        mov     byte [bx+tecla],aux_key2
         jmp     fim_decode
 nao_pausar:
 	cmp	byte [bx+tecla],mover_esq
@@ -66,9 +67,11 @@ gameover:
         popf
         ret
 freeze:
+        mov     word [bx+tecla],aux_key1
+stuck:
 	mov	bx,[p_i]
-        cmp     byte [bx+tecla],s_makecode
-        jne     freeze
+        cmp     byte [bx+tecla],pausar
+        jne     stuck
         ret
 
 %include "asm/config.asm"

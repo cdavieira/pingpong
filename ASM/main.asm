@@ -39,12 +39,12 @@ jogar:
         mov     ax,cor_fundo
         cmp     ax,preto
         je      nao_colorir
-        xor     ax,ax ; carregando cor de fundo, se for diferente de preto
+        xor     ax,ax
         mov     ax,loading_msg
         push    ax
         mov     ax,000ah
         push    ax
-        call    pintar_fundo
+        call    pintar_fundo ; carregando cor de fundo, se for diferente de preto
 nao_colorir:
 	call	gameloop
 
