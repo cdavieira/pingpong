@@ -45,13 +45,6 @@ colorir:
         call    mensagem
 nao_repintar_txt:
         loop    colorir
-        mov     dl,cor_fundo
-        shl     dl,4
-        or      dl,cor_fundo
-        push    dx
-        push    word [bp+6]
-        push    word [bp+4]
-        call    mensagem ; apagar texto
         pop     ax
         mov     [cor],al
         pop     ax
@@ -60,8 +53,8 @@ nao_repintar_txt:
         pop     bp
         ret     4
 
-; Pinta texto no centro da tela de carregamento
-; Parametros: cor de fundo e cor da fonte (bp+8), ponteiro para mensagem (bp+6), numero de caracteres da mensagem (bp+4)
+; Pinta texto no centro da tela de carregamento (orienta-se de acordo com linhas/colunas e nao pixels)
+; Parametros: accent color e cor da fonte (bp+8), ponteiro para mensagem (bp+6), numero de caracteres da mensagem (bp+4)
 mensagem:
         ; imprimir mensagem de carregamento
         push    bp
@@ -75,7 +68,7 @@ mensagem:
         mov     bl,byte [bp+8]
         xor     ax,ax
         mov     cx,[bp+4]; numero de caracteres da string
-        mov     ax,025h
+        mov     ax,textoX
         mov     ah,textoY
         mov     dx,ax ; dl = coluna, dh = linha
         push    ds

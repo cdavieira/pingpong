@@ -1,4 +1,4 @@
-global rect,rectPretty
+global rect,frect,rectPretty
 extern cor,line
 
 ; Desenha um retangulo na tela dada coordenada inicial (canto inferior esquerdo), largura, altura e cor

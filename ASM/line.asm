@@ -1,5 +1,42 @@
-global line
-extern plot_xy,deltax,deltay
+global line,smart_line
+extern plot_xy,deltax,deltay,cor
+
+; push x1;  push y1;  push x2;  push y2;  call line;   (x<639, y<479)
+smart_line:
+	push 	bp
+	mov	bp,sp
+	; salvando o contexto, empilhando registradores
+	pushf
+	push 	ax
+	push	cx
+	push	dx
+        ; y = row, x = column
+        mov     cx,[bp+10]
+        mov     dx,[bp+8]
+        mov     ah,0dh
+        int     10h
+        cmp     al,byte [cor]
+        jne     precisa_desenhar
+        mov     cx,[bp+6]
+        mov     dx,[bp+4]
+        mov     ah,0dh
+        int     10h
+        cmp     al,byte [cor]
+        jne     precisa_desenhar
+        jmp     fim_smartline
+precisa_desenhar:
+        push    word [bp+10]
+        push    word [bp+8]
+        push    word [bp+6]
+        push    word [bp+4]
+        call    line
+fim_smartline:
+	pop	dx
+	pop	cx
+	pop	ax
+	popf
+	pop	bp
+	ret	8
 
 ; função line
 ; push x1;  push y1;  push x2;  push y2;  call line;   (x<639, y<479)

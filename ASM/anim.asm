@@ -1,5 +1,5 @@
 global anim_bola,anim_ret,pintar_frame
-extern cor,velBolaY,velBolaX,delay,retX,bolaX,bolaY,canMoveRet,velRetX,tecla,p_t
+extern cor,velBolaY,velBolaX,retX,bolaX,bolaY,canMoveRet,velRetX,tecla,p_t
 extern circPretty,rectPretty,full_circle
 
 ; A função anim_bola atualiza a posicao do circulo em movimento, que quica pelas paredes sob um angulo de 45 graus.

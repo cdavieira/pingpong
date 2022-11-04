@@ -6,7 +6,6 @@ del %lstFolder%\line.lst
 del %lstFolder%\plot_xy.lst
 del %lstFolder%\menu.lst
 del %lstFolder%\rect.lst
-del %lstFolder%\delay.lst
 del %lstFolder%\circ.lst
 del %lstFolder%\gameloop.lst
 del %lstFolder%\bg.lst
@@ -18,7 +17,6 @@ del %objFolder%\line.obj
 del %objFolder%\plot_xy.obj
 del %objFolder%\menu.obj
 del %objFolder%\rect.obj
-del %objFolder%\delay.obj
 del %objFolder%\circ.obj
 del %objFolder%\gameloop.obj
 del %objFolder%\bg.obj

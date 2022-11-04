@@ -1,13 +1,19 @@
-global gameloop
-extern p_i,p_t,tecla,cor,canMoveRet,pause_msg,bolaY,retX
-extern janela,line,pintar_frame
+global gameloop,msg_fim
+extern p_i,p_t,tecla,cor,canMoveRet,velBolaX,velBolaY,bolaY,bolaX,retX,gameover_msg,jogador_perdeu
+extern janela,line,pintar_frame,frect
 
 gameloop:
         pushf
         push    ax
         push    bx
 frame_inicial:
+        mov     word [canMoveRet],1 ; habilitando desenho do retangulo
+        mov     word [bolaX],telaX/2 ; configurando coordenadas iniciais da bola
+        mov     word [bolaY],telaY/2 ; configurando coordenadas iniciais da bola
+        mov     word [retX],telaX/2 ; configurando coordenadas iniciais do jogador
+        mov     byte [jogador_perdeu],0 ; resetando status de derrota do jogador
         call    janela ; desenhando contorno
+        call    apagar_msg ; apagando texto "loading..."
         xor     ax,ax
         mov     al,[cor]
         push    ax ; guardando a cor antiga
@@ -29,18 +35,17 @@ loop3:
         cmp     ax,retH
         jl      gameover ; termina se o ponto inferior do circulo tiver passado da borda/altura do retangulo
         call    pintar_frame
-        ; CHECAR SE O PLAYER PERDEU
 	mov	bx,[p_i]
         cmp     [p_t],bx
         je      loop3
 decodificar:
         mov     word [p_t],bx
 	cmp	byte [bx+tecla],tecla_finalizar
-        je      gameover
+        je      player_quit
 	cmp	byte [bx+tecla],pausar
         jne     nao_pausar
-        ; TALVEZ COLOCAR AQUI PARA EXIBIR UMA MENSAGEM DE PAUSE NA TELA
-        call    freeze
+        jmp     freeze
+break_freeze:
         mov     byte [bx+tecla],aux_key2
         jmp     fim_decode
 nao_pausar:
@@ -55,23 +60,81 @@ outra_tecla1:
         cmp     word [retX],maxRetX ; checando se a posicao do ret pode ser atualizada ou nao
         jl      mover_ret ; signed
         jmp     fim_decode
+freeze:
+        mov     word [bx+tecla],aux_key1
+stuck:
+	mov	bx,[p_i]
+        cmp     byte [bx+tecla],tecla_finalizar
+        je      player_quit
+        cmp     byte [bx+tecla],pausar
+        jne     stuck
+        jmp     break_freeze
 mover_ret:
         mov     byte [canMoveRet],1
 fim_decode:
         jmp     esperar_acao
 gameover:
+        call    msg_fim
+        mov     byte[jogador_perdeu],1
+player_quit:
         pop     ax
         mov     [cor],al ; recuperando cor antiga
         pop     bx
         pop     ax
         popf
         ret
-freeze:
-        mov     word [bx+tecla],aux_key1
-stuck:
-	mov	bx,[p_i]
-        cmp     byte [bx+tecla],pausar
-        jne     stuck
+
+; Apaga porção central da tela onde eh escrito texto
+apagar_msg:
+        push    ax
+        xor     ax,ax
+        mov     al,[cor]
+        push    ax
+        mov     ax,cor_fundo
+        push    ax ; passando cor de fundo
+        mov     ax,90
+        push    ax ; passando largura
+        mov     ax,30
+        push    ax ; passando altura
+        mov     ax,telaX/2-30 ; passando coordenada x do canto inferior esquerdo
+        push    ax
+        mov     ax,telaY/2-22 ; passando coordenada y do canto inferior esquerdo
+        push    ax
+        call    frect ; apagando texto anteriormente desenhado no centro da imagem
+        pop     ax
+        mov     [cor],al
+        pop     ax
+        ret
+
+msg_fim:
+        push    ax
+        push    bx
+        push    cx
+        push    dx
+        push    es
+        push    bp
+        xor     ax,ax
+        mov     al,[cor]
+        add     ax,2
+        mov     bl,0010h
+        div     bl
+        mov     bl,ah
+        mov     cx,51
+        mov     ax,textoX-20
+        mov     ah,textoY
+        mov     dx,ax ; dl = coluna, dh = linha
+        push    ds
+        pop     es ; a string a ser impressa deve ser apontada por ES:BP
+        mov     bp,gameover_msg ; a string a ser impressa deve ser apontada por ES:BP
+        mov     al,0 ; al = write mode
+        mov     ah,13h
+        int     10h
+        pop     bp
+        pop     es
+        pop     dx
+        pop     cx
+        pop     bx
+        pop     ax
         ret
 
 %include "asm/config.asm"
