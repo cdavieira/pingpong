@@ -66,7 +66,7 @@ retH            equ     20 ; altura do retangulo
 retW            equ     40 ; largura do retangulo
 limEX		equ	raio+bolaVel+2 ; limite esquerdo X (valor mínimo) ; +2: +1 borda do jogo +1 borda do circulo
 limDX		equ	telaX-raio-bolaVel-2 ; limite direito X (valor máximo) ; +2: +1 borda do jogo +1 borda do circulo
-limSY		equ	telaY-raio-bolaVel-5 ; limite superior Y (valor máximo)
+limSY		equ	telaY-raio-bolaVel-2 ; limite superior Y (valor máximo)
 limIY		equ	retH+raio+bolaVel ; limite inferior Y (valor mínimo)
 retCor          equ     azul
 retBorda        equ     preto ; cor da borda do retangulo
