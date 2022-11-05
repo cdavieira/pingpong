@@ -2,8 +2,6 @@ extern modo_anterior,cores_menu,loading_msg,cor,velBolaX,velBolaY
 extern limSY,limIY,limEX,limDX,tecla,jogador_perdeu,bolaX,bolaY,retX,canMoveRet
 extern trocar_int9,restaurar_int9,menu,gameloop,pintar_fundo,msg_fim,p_t,p_i
 
-extern pintar_frame
-
 segment code
 ..start:
 	; configura segmentos
