@@ -40,6 +40,10 @@ tecla_pressionada:
 	mov	ax,seg cs_dos
 	mov	ds,ax
 	in	al, kb_data ; al armazena o caracter lido no teclado (tanto makecode como breakcode)
+        cmp     al, 0e0h ; caso o caracter lido seja 0e0, significa que o makecode apresenta +1 codigo no buffer de leitura
+        jne     cont
+	in	al, kb_data ; le-se o segundo codigo do buffer e o armazena em al. Nesse caso, esse sera o codigo interpretado pelo programa.
+cont:
 	inc	word [p_i] ; atualizando deslocamento
 	and	word [p_i],7 ; atualizando deslocamento
 	mov	bx,[p_i] ; atualizando deslocamento

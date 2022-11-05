@@ -10,7 +10,7 @@ anim_bola:
         mov     ax,[bolaY]
         mov     bx,[bolaX]
         cmp     ax,[limSY]
-        jg      mudar_sentidoY
+        jge      mudar_sentidoY
         cmp     ax,[limIY]
         jg      nao_mudar_sentidoY
         xor     dx,dx
@@ -31,7 +31,7 @@ nao_mudar_sentidoY:
 	cmp	bx,[limEX] ; testando limite esquerdo de X
 	jle	mudar_sentidoX
 	cmp	bx,[limDX] ; testando limite direito de X
-	jle	nao_mudar_sentidoX
+	jl	nao_mudar_sentidoX
 mudar_sentidoX:
 	neg     word [velBolaX]
 nao_mudar_sentidoX:
@@ -203,11 +203,22 @@ nao_att_ret:
         call    apagar_bola
         call    anim_bola
         call    pintar_bola
+        call    wait_frame
         ret
 
-apagar_frame:
-        call    apagar_ret
-        call    apagar_bola
+; Cria uma janela de tempo para que um frame perdure por mais tempo
+wait_frame:
+        push    cx
+        mov     cx,10
+loop8:
+        push    cx
+        mov     cx,1000h
+loop9:
+        nop
+        loop    loop9
+        pop     cx
+        loop    loop8
+        pop     cx
         ret
 
 %include "asm/config.asm"

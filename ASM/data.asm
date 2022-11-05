@@ -14,10 +14,10 @@ deltay		dw      0
 velBolaX 	dw	-1*bolaVel ; ganho na direção x (valor variável)
 velBolaY	dw	bolaVel	 ; ganho na direção y (valor variável)
 velRetX         dw      retVel
-limEX		dw	raio+bolaVel ; limite esquerdo X (valor mínimo)
-limDX		dw	telaX-raio-bolaVel ; limite direito X (valor máximo)
-limSY		dw	telaY-raio-bolaVel ; limite superior Y (valor máximo)
-limIY		dw	retH+raio+bolaVel ; limite inferior Y (valor mínimo)
+limEX		dw	0 ; limite esquerdo X (valor mínimo) (determinado em runtime)
+limDX		dw	0 ; limite direito X (valor máximo) (determinado em runtime)
+limSY		dw	0 ; limite superior Y (valor máximo) (determinado em runtime)
+limIY		dw	0 ; limite inferior Y (valor mínimo) (determinado em runtime)
 bolaX           dw      telaX/2 ; coordenada X do ponto central do circulo
 bolaY           dw      telaY/2 ; coordenada Y do ponto central do circulo
 retX            dw      telaX/2 ; coordenada X do ponto central do retangulo

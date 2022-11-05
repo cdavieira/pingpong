@@ -37,6 +37,8 @@ s_makecode      equ     01fh
 v_makecode      equ     02fh
 v_breakcode     equ     0afh
 r_makecode      equ     013h
+seta_d_makecode equ     04dh
+seta_e_makecode equ     04bh
 esc             equ     51h
 
 ; configuracoes do menu
@@ -47,15 +49,15 @@ caixaY          equ     3*caixaH ; coordenada Y (pixels) das caixas, deve ser me
 textoX          equ     025h ; coordenada X dos textos centrais (em colunas e nao em pixels)
 textoY          equ     linhas/2 ; coordenada Y dos textos centrais (em linhas e nao em pixels)
 tecla_cont      equ     enter_breakcode ; tecla para selecionar modo e continuar jogo
-esquerda_menu   equ     j_breakcode ; tecla para selecionar modo de jogo a esquerda
-direita_menu    equ     k_breakcode ; tecla para selecionar modo de jogo a direita
+esquerda_menu   equ     seta_e_makecode ; tecla para selecionar modo de jogo a esquerda
+direita_menu    equ     seta_d_makecode ; tecla para selecionar modo de jogo a direita
 
 ; configuracoes do jogo
 tecla_finalizar equ     q_makecode ; tecla para sair do jogo instantaneamente
 pausar          equ     s_makecode ; tecla para pausar jogo
 reiniciar       equ     r_makecode ; tecla para reiniciar jogo
-mover_esq       equ     j_makecode ; mover o retangulo para a esquerda
-mover_dir       equ     k_makecode ; mover o retangula para a direita
+mover_esq       equ     seta_e_makecode ; mover o retangulo para a esquerda
+mover_dir       equ     seta_d_makecode ; mover o retangula para a direita
 aux_key1        equ     v_makecode ; chave de controle temporaria para certas situacoes ; nao afeta jogo
 aux_key2        equ     v_breakcode ; chave de controle temporaria para certas situacoes ; nao afeta jogo
 
