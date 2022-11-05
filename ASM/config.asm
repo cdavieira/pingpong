@@ -74,6 +74,7 @@ bolaBorda       equ     preto ; cor da borda da bola
 minRetX         equ     retW/2+retVel
 maxRetX         equ     telaX-retW/2-1-retVel
 dificultar      equ     2
+duracao_frame   equ     10
 
 ; interrupcao teclado
 kb_data 	equ 	60h  ; porta de leitura de teclado

@@ -1,6 +1,6 @@
-global anim_bola,anim_ret,pintar_frame
+global anim_bola,anim_ret,pintar_frame,pintar_ret
 extern cor,velBolaY,velBolaX,retX,bolaX,bolaY,canMoveRet,velRetX,tecla,p_t,limSY,limIY,limEX,limDX
-extern circPretty,rectPretty,full_circle
+extern circPretty,rectPretty,full_circle,smart_rect
 
 ; A função anim_bola atualiza a posicao do circulo em movimento, que quica pelas paredes sob um angulo de 45 graus.
 ; Primeiro checa se a bola esta compreendida entre os limites superioes e inferiores de Y e depois se esta compreendida entre
@@ -198,20 +198,36 @@ apagar_bola:
 pintar_frame:
         cmp     byte [canMoveRet],0
         jz      nao_att_ret
+        ; call    render_ret_legado
+        call    render_ret_otimizada
+nao_att_ret:
+        call    render_bola
+        call    wait_frame
+        ret
+
+render_ret_legado:
         call    apagar_ret
         call    anim_ret
         call    pintar_ret
-nao_att_ret:
+        ret
+
+render_ret_otimizada:
+        push    word [retX] ; guardando posicao x "antiga" do jogador (ponto central do retangulo)
+        call    anim_ret
+        push    word [retX] ; guardando posicao x "nova" do jogador (ponto central do retangulo)
+        call    smart_rect ; chamando funcao otimizada de renderizacao do retangulo do jogador
+        ret
+
+render_bola:
         call    apagar_bola
         call    anim_bola
         call    pintar_bola
-        call    wait_frame
         ret
 
 ; Cria uma janela de tempo para que um frame perdure por mais tempo
 wait_frame:
         push    cx
-        mov     cx,10
+        mov     cx,duracao_frame
 loop8:
         push    cx
         mov     cx,1000h

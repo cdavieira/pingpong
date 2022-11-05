@@ -1,6 +1,6 @@
 global gameloop,msg_fim
 extern p_i,p_t,tecla,cor,canMoveRet,velBolaX,velBolaY,bolaY,bolaX,retX,gameover_msg,jogador_perdeu
-extern janela,line,pintar_frame,frect
+extern janela,line,pintar_frame,pintar_ret,frect
 
 gameloop:
         pushf
@@ -12,8 +12,9 @@ gameloop:
 frame_inicial:
         call    apagar_msg ; apagando texto "loading..."
         call    frame_jogo ; desenhando janela do jogo
+        call    pintar_ret ; pintando inicialmente retangulo do jogador ; requiremento para usar funcao render_ret_otimizada na funcao pintar_frame
 esperar_acao:
-        call    pintar_frame
+        call    pintar_frame ; pintando ou frame inicial do jogo ou frame de quando o retangulo muda de posicao na tela
         mov     byte [canMoveRet],0
 loop3:
         mov     ax,[bolaY]
