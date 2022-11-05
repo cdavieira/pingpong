@@ -1,5 +1,5 @@
 global modo_anterior,cor,deltax,deltay
-global velBolaX,velBolaY,velRetX,bolaX,bolaY,retX,canMoveRet,jogador_perdeu
+global velBolaX,velBolaY,velRetX,limEX,limDX,limSY,limIY,bolaX,bolaY,retX,canMoveRet,jogador_perdeu
 global cs_dos,offset_dos,tecla,p_i,p_t
 global facil_msg,medio_msg,dificil_msg,cores_menu,loading_msg,gameover_msg
 
@@ -14,6 +14,10 @@ deltay		dw      0
 velBolaX 	dw	-1*bolaVel ; ganho na direção x (valor variável)
 velBolaY	dw	bolaVel	 ; ganho na direção y (valor variável)
 velRetX         dw      retVel
+limEX		dw	raio+bolaVel ; limite esquerdo X (valor mínimo)
+limDX		dw	telaX-raio-bolaVel ; limite direito X (valor máximo)
+limSY		dw	telaY-raio-bolaVel ; limite superior Y (valor máximo)
+limIY		dw	retH+raio+bolaVel ; limite inferior Y (valor mínimo)
 bolaX           dw      telaX/2 ; coordenada X do ponto central do circulo
 bolaY           dw      telaY/2 ; coordenada Y do ponto central do circulo
 retX            dw      telaX/2 ; coordenada X do ponto central do retangulo

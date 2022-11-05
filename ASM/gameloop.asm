@@ -7,11 +7,6 @@ gameloop:
         push    ax
         push    bx
 frame_inicial:
-        mov     word [canMoveRet],1 ; habilitando desenho do retangulo
-        mov     word [bolaX],telaX/2 ; configurando coordenadas iniciais da bola
-        mov     word [bolaY],telaY/2 ; configurando coordenadas iniciais da bola
-        mov     word [retX],telaX/2 ; configurando coordenadas iniciais do jogador
-        mov     byte [jogador_perdeu],0 ; resetando status de derrota do jogador
         call    janela ; desenhando contorno
         call    apagar_msg ; apagando texto "loading..."
         xor     ax,ax

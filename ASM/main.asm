@@ -1,4 +1,5 @@
-extern modo_anterior,cores_menu,loading_msg,cor,velBolaX,velBolaY,tecla,jogador_perdeu
+extern modo_anterior,cores_menu,loading_msg,cor,velBolaX,velBolaY
+extern limSY,limIY,limEX,limDX,tecla,jogador_perdeu,bolaX,bolaY,retX,canMoveRet
 extern trocar_int9,restaurar_int9,menu,gameloop,pintar_fundo,msg_fim,p_t,p_i
 
 segment code
@@ -27,30 +28,23 @@ nova_partida:
         mov     byte [cores_menu+2],verde ; modo 1 
         mov     byte [cores_menu+3],vermelho ; modo 2
         call	menu ; iniciando cena do menu
-        mov     word [velBolaX],-1*bolaVel ; configurando velocidade x inicial
-        mov     word [velBolaY],bolaVel ; configurando velocidade y inicial
         cmp     byte [cores_menu],0ffh ; caso a tecla q tenha sido pressionada durante o menu
         je      fecharr_jogo
-        xor     cx,cx
-        mov     cl,[cores_menu]
-mudar_velocidade:
-        sub     word [velBolaX],dificultar
-        add     word [velBolaY],dificultar
-        loop    mudar_velocidade
 jogar:
+        call    set_default ; definindo configuracoes iniciais do jogo
 	mov	word ax,0012h
 	int	10h ; apagando menu
         xor     ax,ax
         mov     ax,cor_fundo
         cmp     ax,preto
-        je      nao_colorir
+        je      nao_colorir_fundo
         xor     ax,ax
         mov     ax,loading_msg
         push    ax
         mov     ax,000ah
         push    ax
         call    pintar_fundo ; carregando cor de fundo, se for diferente de preto
-nao_colorir:
+nao_colorir_fundo:
 	call	gameloop
         cmp     byte [jogador_perdeu],0
         jz      fecharr_jogo
@@ -74,6 +68,49 @@ fecharr_jogo:
 	; finalizar programa
 	mov     ax,4c00h
 	int     21h
+set_default:
+        push    ax
+        push    bx
+        push    cx
+        mov     word [velBolaX],-1*bolaVel ; configurando velocidade x inicial
+        mov     word [velBolaY],bolaVel ; configurando velocidade y inicial
+        xor     cx,cx
+        mov     cl,[cores_menu]
+mudar_velocidade:
+        sub     word [velBolaX],dificultar
+        add     word [velBolaY],dificultar
+        loop    mudar_velocidade
+limites_tela:
+        xor     ax,ax
+        xor     bx,ax
+        mov     ax,[velBolaY]
+        cmp     ax,0
+        jge     continuar ; caso ax seja positivo, continuar, senao converter para positivo
+        neg     ax
+continuar:
+        add     ax,raio
+        mov     bx,telaY
+        sub     bx,ax
+        mov     word [limSY],bx
+        xor     bx,bx
+        mov     bx,retH
+        add     bx,ax
+        mov     word [limIY],bx
+        mov     word [limEX],ax
+        xor     bx,bx
+        mov     bx,telaX
+        sub     bx,ax
+        mov     word [limDX],bx
+geral:
+        mov     word [canMoveRet],1 ; habilitando desenho do retangulo
+        mov     word [bolaX],telaX/2 ; configurando coordenadas iniciais da bola
+        mov     word [bolaY],telaY/2 ; configurando coordenadas iniciais da bola
+        mov     word [retX],telaX/2 ; configurando coordenadas iniciais do jogador
+        mov     byte [jogador_perdeu],0 ; resetando status de derrota do jogador
+        pop     cx
+        pop     bx
+        pop     ax
+        ret
 
 segment stack stack
 	resb	512

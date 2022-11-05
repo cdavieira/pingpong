@@ -1,5 +1,5 @@
 global anim_bola,anim_ret,pintar_frame
-extern cor,velBolaY,velBolaX,retX,bolaX,bolaY,canMoveRet,velRetX,tecla,p_t
+extern cor,velBolaY,velBolaX,retX,bolaX,bolaY,canMoveRet,velRetX,tecla,p_t,limSY,limIY,limEX,limDX
 extern circPretty,rectPretty,full_circle
 
 ; A função anim_bola atualiza a posicao do circulo em movimento, que quica pelas paredes sob um angulo de 45 graus.
@@ -9,9 +9,9 @@ anim_bola:
         push    dx
         mov     ax,[bolaY]
         mov     bx,[bolaX]
-        cmp     ax,limSY
+        cmp     ax,[limSY]
         jg      mudar_sentidoY
-        cmp     ax,limIY
+        cmp     ax,[limIY]
         jg      nao_mudar_sentidoY
         xor     dx,dx
         mov     dx,[retX] ; assumindo que a posicao do retX nunca excedera os limites da tela
@@ -28,9 +28,9 @@ anim_bola:
 mudar_sentidoY:
 	neg     word [velBolaY]
 nao_mudar_sentidoY:
-	cmp	bx,limEX ; testando limite esquerdo de X
+	cmp	bx,[limEX] ; testando limite esquerdo de X
 	jle	mudar_sentidoX
-	cmp	bx,limDX ; testando limite direito de X
+	cmp	bx,[limDX] ; testando limite direito de X
 	jle	nao_mudar_sentidoX
 mudar_sentidoX:
 	neg     word [velBolaX]
