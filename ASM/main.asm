@@ -20,31 +20,12 @@ segment code
         call    trocar_int9
 
 nova_partida:
-	; alterar modo de video para grafico 640x480 16 cores
-	mov	word ax,0012h
-	int	10h
-        mov     byte [cores_menu],1
-        mov     byte [cores_menu+1],vermelho ; modo 0 
-        mov     byte [cores_menu+2],verde ; modo 1 
-        mov     byte [cores_menu+3],vermelho ; modo 2
         call	menu ; iniciando cena do menu
         cmp     byte [cores_menu],0ffh ; caso a tecla q tenha sido pressionada durante o menu
         je      fecharr_jogo
 jogar:
         call    set_default ; definindo configuracoes iniciais do jogo
-	mov	word ax,0012h
-	int	10h ; apagando menu
-        xor     ax,ax
-        mov     ax,cor_fundo
-        cmp     ax,preto
-        je      nao_colorir_fundo
-        xor     ax,ax
-        mov     ax,loading_msg
-        push    ax
-        mov     ax,000ah
-        push    ax
-        call    pintar_fundo ; carregando cor de fundo, se for diferente de preto
-nao_colorir_fundo:
+        call    preparar_fundo ; preparando cor de fundo
 	call	gameloop
         cmp     byte [jogador_perdeu],0
         jz      fecharr_jogo
@@ -68,6 +49,27 @@ fecharr_jogo:
 	; finalizar programa
 	mov     ax,4c00h
 	int     21h
+
+; Prepara a tela de fundo do jogo (loading screen)
+preparar_fundo:
+        push    ax
+	mov	word ax,0012h
+	int	10h ; apagando menu
+        xor     ax,ax
+        mov     ax,cor_fundo
+        cmp     ax,preto
+        je      nao_colorir_fundo
+        xor     ax,ax
+        mov     ax,loading_msg
+        push    ax
+        mov     ax,000ah
+        push    ax
+        call    pintar_fundo ; carregando cor de fundo, se for diferente de preto
+nao_colorir_fundo:
+        pop     ax
+        ret
+
+; Configura o jogo com as condicoes iniciais inerentes a velocidade dos objetos, limites da tela e outros
 set_default:
         push    ax
         push    bx
@@ -89,7 +91,7 @@ limites_tela:
         neg     ax
 continuar:
         add     ax,raio
-        mov     bx,telaY
+        mov     bx,telaY-1
         sub     bx,ax
         mov     word [limSY],bx
         xor     bx,bx
@@ -98,7 +100,7 @@ continuar:
         mov     word [limIY],bx
         mov     word [limEX],ax
         xor     bx,bx
-        mov     bx,telaX
+        mov     bx,telaX-1
         sub     bx,ax
         mov     word [limDX],bx
 geral:

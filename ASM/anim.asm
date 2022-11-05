@@ -3,6 +3,8 @@ extern cor,velBolaY,velBolaX,retX,bolaX,bolaY,canMoveRet,velRetX,tecla,p_t,limSY
 extern circPretty,rectPretty,full_circle
 
 ; A função anim_bola atualiza a posicao do circulo em movimento, que quica pelas paredes sob um angulo de 45 graus.
+; Primeiro checa se a bola esta compreendida entre os limites superioes e inferiores de Y e depois se esta compreendida entre
+; os limites direito e esquerdo de X
 anim_bola:
         push    ax
         push    bx
@@ -10,7 +12,7 @@ anim_bola:
         mov     ax,[bolaY]
         mov     bx,[bolaX]
         cmp     ax,[limSY]
-        jge      mudar_sentidoY
+        jge     mudar_sentidoY
         cmp     ax,[limIY]
         jg      nao_mudar_sentidoY
         xor     dx,dx

@@ -58,7 +58,7 @@ margem_bot:
 
 ; Desenha um retangulo pintado na tela dada coordenada inicial (canto inferior esquerdo), largura, altura e cor
 ; Fica ao encargo do programador garantir que as coordenadas dos pontos do retangulo estejam nos limites da tela!
-; Pilha antes da chamada:
+; Pilha durante execucao:
     ; cor   (word) <- bp+16 (push)
     ; largura (word) <- bp+14 (push)
     ; altura (word) <- bp+12 (push)
@@ -103,7 +103,7 @@ pintar_frect:
 
 ; Desenha um retangulo pintado e bordado na tela dada coordenada inicial (canto inferior esquerdo), largura, altura, cor de fundo e cor de borda
 ; Fica ao encargo do programador garantir que as coordenadas dos pontos do retangulo estejam nos limites da tela!
-; Pilha antes da chamada:
+; Pilha durante execucao:
     ; cor de borda (word) <- bp+14 (push)
     ; cor de fundo (word) <- bp+12 (push)
     ; largura (word) <- bp+10 (push)

@@ -29,7 +29,7 @@ tecla		resb	8
 p_i		dw	0   ; ponteiro p/ int (qnd pressiona tecla)
 p_t		dw	0   ; ponterio p/ int (qnd solta tecla)
 
-; menu
+; menu e strings
 facil_msg       db      "facil"
 medio_msg       db      "medio"
 dificil_msg     db      "dificil"

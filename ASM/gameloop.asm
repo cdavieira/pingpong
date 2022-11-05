@@ -6,21 +6,12 @@ gameloop:
         pushf
         push    ax
         push    bx
-frame_inicial:
-        call    janela ; desenhando contorno
-        call    apagar_msg ; apagando texto "loading..."
         xor     ax,ax
         mov     al,[cor]
         push    ax ; guardando a cor antiga
-        mov     byte [cor],cor_fundo
-        xor     ax,ax
-        push    ax ; carregando x do ponto inicial (0)
-        push    ax ; carregando y do ponto inicial (0)
-        mov     ax,telaX-1
-        push    ax ; carregando x do ponto final (telaX-1)
-        xor     ax,ax
-        push    ax ; carregando y do ponto final (0)
-        call    line ; apagando borda branca inferior
+frame_inicial:
+        call    apagar_msg ; apagando texto "loading..."
+        call    frame_jogo ; desenhando janela do jogo
 esperar_acao:
         call    pintar_frame
         mov     byte [canMoveRet],0
@@ -79,6 +70,21 @@ player_quit:
         popf
         ret
 
+frame_jogo:
+        call    janela ; desenhando contorno
+        push    ax
+        mov     byte [cor],cor_fundo
+        xor     ax,ax
+        push    ax ; carregando x do ponto inicial (0)
+        push    ax ; carregando y do ponto inicial (0)
+        mov     ax,telaX-1
+        push    ax ; carregando x do ponto final (telaX-1)
+        xor     ax,ax
+        push    ax ; carregando y do ponto final (0)
+        call    line ; apagando borda branca inferior
+        pop     ax
+        ret
+
 ; Apaga porção central da tela onde eh escrito texto
 apagar_msg:
         push    ax
@@ -113,8 +119,8 @@ msg_fim:
         add     ax,2
         mov     bl,0010h
         div     bl
-        mov     bl,ah
-        mov     cx,51
+        mov     bl,ah ; cor do texto, que foi configurada para ser diferente da cor do fundo
+        mov     cx,51 ; tamanho do texto (hardcoded)
         mov     ax,textoX-20
         mov     ah,textoY
         mov     dx,ax ; dl = coluna, dh = linha

@@ -6,6 +6,7 @@ menu:
         pushf
         push    ax
         push    bx
+        call    preparar_menu
         xor     ax,ax
         mov     al,[cores_menu+1]
         push    ax
@@ -144,6 +145,20 @@ janela:
         push    ax
         push    ax
         call    rect
+        pop     ax
+        ret
+
+
+; Prepara menu com as opcoes iniciais que aparecem para o jogador
+preparar_menu:
+        push    ax
+	; alterar modo de video para grafico 640x480 16 cores
+	mov	word ax,0012h
+	int	10h
+        mov     byte [cores_menu],1
+        mov     byte [cores_menu+1],vermelho ; modo 0 
+        mov     byte [cores_menu+2],verde ; modo 1 
+        mov     byte [cores_menu+3],vermelho ; modo 2
         pop     ax
         ret
 
