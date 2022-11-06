@@ -21,7 +21,7 @@ telaX		equ	640	; comprimento da tela em pixels
 telaY		equ	480	; altura da tela em pixels
 colunas         equ     74      ; numero de colunas (localizacao do cursor)
 linhas          equ     30      ; numero de linhas (localizacao do cursor)
-cor_fundo       equ     preto
+cor_fundo       equ     azul
 
 ; teclado ibm codigos
 j_breakcode     equ     0a4h
@@ -74,7 +74,11 @@ bolaBorda       equ     preto ; cor da borda da bola
 minRetX         equ     retW/2+retVel
 maxRetX         equ     telaX-retW/2-1-retVel
 dificultar      equ     2
-duracao_frame   equ     10
+duracao_frame   equ     10 ; delay por loop
+fake_fps        equ     60 ; delay por interrupcao (15h,ah=86h)
+t_int_delay     equ     1000000/fake_fps ; duracao de cada fake frame
+t_cx            equ     t_int_delay/10000h ; valor de cx ao chamar a int 15h
+t_dx            equ     t_int_delay-t_cx*10000h ; valor de dx ao chamar a int 15h
 
 ; interrupcao teclado
 kb_data 	equ 	60h  ; porta de leitura de teclado
