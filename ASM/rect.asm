@@ -206,8 +206,8 @@ desenhar_contorno:
         mov     byte [cor],retBorda
         ; borda esq
         xor     bx,bx
-        mov     bx,retW/2
-        sub     bx,[bp+4] ; obtendo coordenada x do lado esquerdo do retangulo antigo
+        mov     bx,[bp+4] ; obtendo coordenada x do lado esquerdo do retangulo novo
+        sub     bx,retW/2
         push    bx
         xor     ax,ax
         push    ax
@@ -218,7 +218,7 @@ desenhar_contorno:
         ; borda dir
         xor     bx,bx
         mov     bx,retW/2
-        add     bx,[bp+4] ; obtendo coordenada x do lado direito do retangulo antigo
+        add     bx,[bp+4] ; obtendo coordenada x do lado direito do retangulo novo
         push    bx
         xor     ax,ax
         push    ax
@@ -226,8 +226,8 @@ desenhar_contorno:
         mov     ax,retH
         push    ax
         call    line
-        ; borda esq e dir
-        cmp     dx,0
+        ; bordas superior e inferior
+        cmp     dx,0 ; calcular se jogador move-se da esq para dir ou contrario
         js      toright
         ; toleft
         mov     bx,[bp+4]

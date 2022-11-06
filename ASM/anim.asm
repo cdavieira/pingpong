@@ -202,7 +202,8 @@ pintar_frame:
         call    render_ret_otimizada
 nao_att_ret:
         call    render_bola
-        call    wait_frame
+        ; call    wait_frame_loop
+        call    wait_frame_int
         ret
 
 render_ret_legado:
@@ -224,8 +225,8 @@ render_bola:
         call    pintar_bola
         ret
 
-; Cria uma janela de tempo para que um frame perdure por mais tempo
-wait_frame:
+; Cria uma janela de tempo para que um frame perdure por mais tempo por meio de loop
+wait_frame_loop:
         push    cx
         mov     cx,duracao_frame
 loop8:
@@ -237,6 +238,21 @@ loop9:
         pop     cx
         loop    loop8
         pop     cx
+        ret
+
+; Cria uma janela de tempo para que um frame perdure por mais tempo por meio de interrupcao
+wait_frame_int:
+        push    ax
+        push    cx
+        push    dx
+        mov     cx,t_cx
+        mov     dx,t_dx
+        xor     ax,ax
+        mov     ah,086h
+        int     15h
+        pop     dx
+        pop     cx
+        pop     ax
         ret
 
 %include "asm/config.asm"
