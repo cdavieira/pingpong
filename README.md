@@ -6,5 +6,4 @@
 - medir quantos fps o jogo apresenta atualmente
 
 # Prioridades
-1. talvez mudar a forma como o retangulo do jogador eh renderizado (em vez de apagar o circulo inteiro, apenas apagar as linhas de borda, iniciais e finais e redesenhalas)
-2. fazer com que a bolinha comece o jogo randomicamente numa regiao definida da tela (usar resb e mascaramento para manipular a posicao inicial)
+1. fazer com que a bolinha comece o jogo randomicamente numa regiao definida da tela (usar resb e mascaramento para manipular a posicao inicial)
