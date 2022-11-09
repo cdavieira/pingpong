@@ -2,19 +2,32 @@
 #### Digite os seguintes comandos no terminal do MSDOS
 
 Para gerar todos os arquivos objetos:
-```make```
+
+`make`
+
 Para atualizar um unico arquivo objeto:
-```make update arquivo```
+
+`make update arquivo`
+
 Para linkar os arquivos objetos produzidos e gerar o executavel final:
-```make link```
+
+`make link`
+
 Para rodar o executavel final:
-```make run```
+
+`make run`
+
 Para debugar o programa:
-```make debug```
+
+`make debug`
+
 Para remover os arquivos objetos e os arquivos de listagem:
-```make clean```
+
+`make clean`
+
 Para remover os arquivos objetos, os arquivos de listagem e suas pastas:
-```make rebase```
+
+`make rebase`
 
 # Anotações
 - alguns textos estao configurados de forma hardcoded, por isso nem todos seguem as especificacoes contidas no arquivo config
