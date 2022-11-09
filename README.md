@@ -4,9 +4,5 @@
 - talvez usar interrupcao int10h ah=0bh para setar a cor de fundo do modo de video (talvez nao funcione)
 
 # Prioridades
-<<<<<<< HEAD
-1. fazer com que a bolinha comece o jogo randomicamente numa regiao definida da tela (usar resb e mascaramento para manipular a posicao inicial)
-=======
 1. mudar cor de apenas 2 caixas por vez no menu de selecao, em vez de todas
 2. fazer com que a bolinha comece o jogo randomicamente numa regiao definida da tela (usar resb e mascaramento para manipular a posicao inicial)
->>>>>>> beta

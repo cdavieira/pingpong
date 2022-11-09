@@ -21,7 +21,7 @@ telaX		equ	640	; comprimento da tela em pixels
 telaY		equ	480	; altura da tela em pixels
 colunas         equ     74      ; numero de colunas (localizacao do cursor)
 linhas          equ     30      ; numero de linhas (localizacao do cursor)
-cor_fundo       equ     azul
+cor_fundo       equ     cinza
 
 ; teclado ibm codigos
 j_breakcode     equ     0a4h
