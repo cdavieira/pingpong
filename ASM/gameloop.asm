@@ -71,6 +71,7 @@ player_quit:
         popf
         ret
 
+; Desenha janela do jogo e seta algumas configuracoes iniciais
 frame_jogo:
         call    janela ; desenhando contorno
         push    ax
@@ -108,6 +109,7 @@ apagar_msg:
         pop     ax
         ret
 
+; Imprime na tela a mensagem de fim de jogo quando o jogador perde
 msg_fim:
         push    ax
         push    bx

@@ -1,3 +1,5 @@
+; ARQUIVO CEDIDO PELO PROFESSOR ENQUANTO LECIONAVA
+
 global plot_xy
 extern cor
 
