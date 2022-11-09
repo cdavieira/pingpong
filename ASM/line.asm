@@ -1,3 +1,5 @@
+; ARQUIVO CEDIDO PELO PROFESSOR ENQUANTO LECIONAVA
+
 global line,smart_line
 extern plot_xy,deltax,deltay,cor
 

@@ -1,0 +1,11 @@
+if "%1"=="anim" (%exeFolder%\nasm16 -f obj -o %objFolder%\anim.obj -l %lstFolder%\anim.lst %asmFolder%\anim.asm
+if "%1"=="bg" %exeFolder%\nasm16 -f obj -o %objFolder%\bg.obj -l %lstFolder%\bg.lst %asmFolder%\bg.asm
+if "%1"=="circ" %exeFolder%\nasm16 -f obj -o %objFolder%\circ.obj -l %lstFolder%\circ.lst %asmFolder%\circ.asm
+if "%1"=="data" %exeFolder%\nasm16 -f obj -o %objFolder%\data.obj -l %lstFolder%\data.lst %asmFolder%\data.asm
+if "%1"=="gameloop" %exeFolder%\nasm16 -f obj -o %objFolder%\gameloop.obj -l %lstFolder%\gameloop.lst %asmFolder%\gameloop.asm
+if "%1"=="line" %exeFolder%\nasm16 -f obj -o %objFolder%\line.obj -l %lstFolder%\line.lst %asmFolder%\line.asm
+if "%1"=="main" %exeFolder%\nasm16 -f obj -o %objFolder%\main.obj -l %lstFolder%\main.lst %asmFolder%\main.asm
+if "%1"=="menu" %exeFolder%\nasm16 -f obj -o %objFolder%\menu.obj -l %lstFolder%\menu.lst %asmFolder%\menu.asm
+if "%1"=="plot_xy" %exeFolder%\nasm16 -f obj -o %objFolder%\plot_xy.obj -l %lstFolder%\plot_xy.lst %asmFolder%\plot_xy.asm
+if "%1"=="rect" %exeFolder%\nasm16 -f obj -o %objFolder%\rect.obj -l %lstFolder%\rect.lst %asmFolder%\rect.asm
+if "%1"=="teclado" %exeFolder%\nasm16 -f obj -o %objFolder%\teclado.obj -l %lstFolder%\teclado.lst %asmFolder%\teclado.asm
