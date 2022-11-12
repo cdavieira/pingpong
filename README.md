@@ -4,9 +4,9 @@ Jogo de pingpong escrito em assembly para o processador intel 8086/8088, progeni
 # Como o jogo se parece
 <div>
 <p align="center">
-![Menu inicial](/ASSETS/menu.png)
-![Tela de carregamento](/ASSETS/loading-screen.png)
-![Jogo](/ASSETS/gameplay.png)
+<img src="/ASSETS/menu.png" alt="Menu Inicial">
+<img src="/ASSETS/loading-screen.png" alt="Tela de carregamento">
+<img src="/ASSETS/gameplay.png" alt="Jogo">
 </p>
 </div>
 
