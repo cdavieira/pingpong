@@ -1,6 +1,14 @@
-# Comandos do MAKEFILE
+# Sobre o projeto
+Jogo de pingpong escrito em assembly para o processador intel 8086/8088, progenitor da familia x86.
+
+# Como o jogo se parece
+![Menu inicial](ASSETS/menu.asm)
+![Tela de carregamento](ASSETS/loading-screen.asm)
+![Jogo](ASSETS/gameplay.asm)
+
+# Comandos de build
 #### Digite os seguintes comandos no terminal do MSDOS
-#### Emulador de terminal MSDOS recomendado: dosbox
+###### Emulador de terminal MSDOS recomendado: dosbox
 
 Para gerar todos os arquivos objetos:
 
@@ -30,6 +38,5 @@ Para remover os arquivos objetos, os arquivos de listagem e suas pastas:
 
 `make rebase`
 
-# Anotações
-- alguns textos estao configurados de forma hardcoded, por isso nem todos seguem as especificacoes contidas no arquivo config
-- a interrupcao int21h ah=25h pode tambem ser usada para configurar o vetor de interrupcao inicial
+# Avisos
+- Alguns textos estao configurados de forma hardcoded, por isso nem todos seguem as especificacoes contidas no arquivo config
