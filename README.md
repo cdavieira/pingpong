@@ -1,10 +1,14 @@
 # Sobre o projeto
-Jogo de pingpong escrito em assembly para o processador intel 8086/8088, progenitor da familia x86.
+Jogo de pingpong escrito em assembly para o processador intel 8086/8088, progenitor da familia x86. Autor: Carlos Daniel Albertino Vieira.
 
 # Como o jogo se parece
+<div>
+<p align="center">
 ![Menu inicial](/ASSETS/menu.png)
 ![Tela de carregamento](/ASSETS/loading-screen.png)
 ![Jogo](/ASSETS/gameplay.png)
+</p>
+</div>
 
 # Comandos de build
 #### Digite os seguintes comandos no terminal do MSDOS
