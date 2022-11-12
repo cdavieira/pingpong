@@ -2,9 +2,9 @@
 Jogo de pingpong escrito em assembly para o processador intel 8086/8088, progenitor da familia x86.
 
 # Como o jogo se parece
-![Menu inicial](ASSETS/menu.asm)
-![Tela de carregamento](ASSETS/loading-screen.asm)
-![Jogo](ASSETS/gameplay.asm)
+![Menu inicial](/ASSETS/menu.asm)
+![Tela de carregamento](/ASSETS/loading-screen.asm)
+![Jogo](/ASSETS/gameplay.asm)
 
 # Comandos de build
 #### Digite os seguintes comandos no terminal do MSDOS
