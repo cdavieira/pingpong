@@ -1,5 +1,5 @@
 # Sobre o projeto
-Pingpong escrito em assembly para o processador intel 8086/8088, progenitor da familia x86. Autor: Carlos Daniel Albertino Vieira.
+Pingpong escrito em assembly para o processador intel 8086/8088, progenitor da familia x86.
 
 # Como o jogo se parece
 <div>
